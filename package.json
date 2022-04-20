@@ -1,0 +1,17 @@
+{
+  "name": "gh-pages-playground",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.7.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.2.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.5"
+  }
+}
