@@ -1,0 +1,11 @@
+#app {
+  height: 100%;
+}
+
+#app > *:first-child {
+  overflow: hidden;
+}
+
+.safe-background {
+  padding: var(--safe-padding);
+}

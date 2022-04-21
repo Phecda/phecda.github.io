@@ -1,3 +1,5 @@
+import PageRouter from './pages/router';
+
 export function App() {
-  return <p>Hello Vite + Preact!</p>;
+  return <PageRouter />;
 }

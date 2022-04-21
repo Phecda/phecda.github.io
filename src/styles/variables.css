@@ -1,0 +1,7 @@
+:root {
+  --st-space: 16px;
+  --safe-padding: env(safe-area-inset-top, var(--st-space))
+    env(safe-area-inset-right, var(--st-space))
+    env(safe-area-inset-bottom, var(--st-space))
+    env(safe-area-inset-left, var(--st-space));
+}
