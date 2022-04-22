@@ -1,6 +1,6 @@
 import { FunctionComponent, JSX } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { combineClassName } from '../../utils/combineClassName';
+import { combineClassName } from '@/utils/combineClassName';
 import styles from './styles.module.css';
 
 type DimLineProps = {
@@ -8,6 +8,9 @@ type DimLineProps = {
   direction: 'horizontal' | 'vertical';
   color?: string;
 };
+
+const ARROW_LINE_WIDTH = 2;
+const MIN_CONTAINER_WIDTH = 8;
 
 export const DimLine: FunctionComponent<DimLineProps> = ({
   position,
@@ -34,6 +37,16 @@ export const DimLine: FunctionComponent<DimLineProps> = ({
     };
   }, [direction]);
 
+  const arrowLine = (
+    <div
+      className={styles.line}
+      style={{
+        backgroundColor: color,
+        width: direction === 'vertical' ? ARROW_LINE_WIDTH : undefined,
+        height: direction === 'horizontal' ? ARROW_LINE_WIDTH : undefined,
+      }}
+    />
+  );
   return (
     <div
       ref={containerRef}
@@ -41,8 +54,8 @@ export const DimLine: FunctionComponent<DimLineProps> = ({
       style={{
         ...position,
         flexDirection: direction === 'horizontal' ? 'row' : 'column',
-        minWidth: direction === 'vertical' ? 8 : undefined,
-        minHeight: direction === 'horizontal' ? 8 : undefined,
+        minWidth: direction === 'vertical' ? MIN_CONTAINER_WIDTH : undefined,
+        minHeight: direction === 'horizontal' ? MIN_CONTAINER_WIDTH : undefined,
       }}
     >
       <div
@@ -56,23 +69,9 @@ export const DimLine: FunctionComponent<DimLineProps> = ({
             : { borderRightColor: color }
         }
       />
-      <div
-        className={styles.line}
-        style={{
-          backgroundColor: color,
-          width: direction === 'vertical' ? 2 : undefined,
-          height: direction === 'horizontal' ? 2 : undefined,
-        }}
-      />
+      {arrowLine}
       <div className={styles.dimDigit}>{dim}</div>
-      <div
-        className={styles.line}
-        style={{
-          backgroundColor: color,
-          width: direction === 'vertical' ? 2 : undefined,
-          height: direction === 'horizontal' ? 2 : undefined,
-        }}
-      />
+      {arrowLine}
       <div
         className={combineClassName(
           styles.arrow,
