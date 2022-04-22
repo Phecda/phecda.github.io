@@ -6,9 +6,58 @@
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
+  position: relative;
 }
 
 .content {
   height: 100%;
   background-color: lightblue;
+  position: relative;
+}
+
+.dimContainer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.line {
+  flex: auto;
+}
+
+.dimDigit {
+  pointer-events: initial;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  --arrow-size: 6px;
+  --transparent-border: var(--arrow-size) solid transparent;
+  --triangle-border: calc(2 * var(--arrow-size)) solid;
+}
+
+.arrowUp {
+  border-left: var(--transparent-border);
+  border-right: var(--transparent-border);
+  border-bottom: var(--triangle-border);
+}
+
+.arrowDown {
+  border-left: var(--transparent-border);
+  border-right: var(--transparent-border);
+  border-top: var(--triangle-border);
+}
+
+.arrowLeft {
+  border-top: var(--transparent-border);
+  border-bottom: var(--transparent-border);
+  border-right: var(--triangle-border);
+}
+
+.arrowRight {
+  border-top: var(--transparent-border);
+  border-bottom: var(--transparent-border);
+  border-left: var(--triangle-border);
 }
