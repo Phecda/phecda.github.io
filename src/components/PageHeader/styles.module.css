@@ -1,0 +1,52 @@
+.navbarContainer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--top-nav-bar-height);
+  z-index: 30;
+  background-color: purple;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  gap: var(--st-space);
+  padding: 0 var(--st-space);
+}
+
+.navbar a {
+  color: white;
+}
+
+.navbar a:visited {
+  color: white;
+}
+
+.brand {
+  display: block;
+}
+
+.brand > img {
+  width: var(--top-nav-bar-height);
+  height: var(--top-nav-bar-height);
+}
+
+.scroll {
+  height: var(--top-nav-bar-height);
+  display: flex;
+  flex-direction: row;
+  gap: var(--st-space);
+}
+
+.link {
+  line-height: var(--top-nav-bar-height);
+  padding: 0 8px;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 0.3s ease-in-out;
+}
+
+.matchedLink {
+  border-bottom: 2px solid white;
+}
