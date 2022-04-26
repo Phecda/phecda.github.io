@@ -1,1 +1,0 @@
-import{j as e,a as r}from"./index.8b3c777d.js";var a={};function s(){return e("div",{className:`safe-background bg-below-top-bar ${a.background}`,children:r("div",{className:"st-content wide-content",children:[e("h1",{children:"Your device"}),e("p",{children:navigator.userAgent})]})})}export{s as default};
