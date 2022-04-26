@@ -49,7 +49,7 @@ export default function LayoutInspector() {
           <div className={styles.insetTop}>{safeInsets.top}</div>
           <div className={styles.insetLeft}>{safeInsets.left}</div>
           <div className={styles.insetCenter}>
-            {window.devicePixelRatio.toFixed(1)}x
+            {Math.round(window.devicePixelRatio * 100) / 100}x
           </div>
           <div className={styles.insetRight}>{safeInsets.right}</div>
           <div className={styles.insetBottom}>{safeInsets.bottom}</div>
