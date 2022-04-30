@@ -10,7 +10,7 @@ const updateSW = registerSW({
     }
   },
   onOfflineReady() {
-    window.alert('The app is ready to use offline.');
+    // window.alert('The app is ready to use offline.');
   },
 });
 
