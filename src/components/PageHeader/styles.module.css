@@ -4,7 +4,7 @@
   width: 100%;
   height: var(--top-nav-bar-height);
   z-index: 30;
-  background-color: purple;
+  background-color: var(--brand-color);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }

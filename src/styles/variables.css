@@ -6,4 +6,6 @@
     env(safe-area-inset-left, var(--st-space));
   --top-nav-bar-height: 60px;
   --max-content-width: 1440px;
+
+  --brand-color: #673ab8;
 }
