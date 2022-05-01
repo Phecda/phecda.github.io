@@ -10,6 +10,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0.67em 0;
+}
+
+p {
+  margin-bottom: 0.5em;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

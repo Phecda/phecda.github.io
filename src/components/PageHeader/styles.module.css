@@ -42,7 +42,7 @@
 
 .link {
   line-height: var(--top-nav-bar-height);
-  padding: 0 8px;
+  padding: 0 var(--st-space-half);
   border-bottom: 2px solid transparent;
   transition: border-bottom-color 0.3s ease-in-out;
 }

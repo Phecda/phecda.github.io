@@ -20,6 +20,11 @@ export default function PageRouter() {
           loading={renderRouteLoading}
           getComponent={() => import('../LayoutInspector').then(m => m.default)}
         />
+        <AsyncRoute
+          path="/style"
+          loading={renderRouteLoading}
+          getComponent={() => import('../StyleInspector').then(m => m.default)}
+        />
         <Route default component={NotFound} />
       </Router>
     </>

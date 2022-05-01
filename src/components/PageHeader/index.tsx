@@ -24,6 +24,13 @@ export default function PageHeader() {
             >
               Layout
             </Link>
+            <Link
+              className={styles.link}
+              activeClassName={styles.matchedLink}
+              href="/style"
+            >
+              Style
+            </Link>
           </div>
         </nav>
       </div>
