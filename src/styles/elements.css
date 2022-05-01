@@ -1,3 +1,16 @@
+body {
+  background-color: var(--color-bg-1);
+  color: var(--color-text-1);
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:visited {
+  color: var(--color-link);
+}
+
 #app {
   height: 100%;
 }

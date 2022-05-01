@@ -58,12 +58,12 @@ export default function LayoutInspector() {
         <DimLine
           direction="horizontal"
           position={{ left: 0, right: 0, top: 60 }}
-          color="blue"
+          color="var(--color-blue)"
         />
         <DimLine
           direction="vertical"
           position={{ top: 0, bottom: 0, left: 40 }}
-          color="blue"
+          color="var(--color-blue)"
         />
       </div>
       <DimLine
@@ -73,7 +73,7 @@ export default function LayoutInspector() {
           right: 0,
           bottom: 'calc(env(safe-area-inset-bottom, 0px) + 40px)',
         }}
-        color="red"
+        color="var(--color-red)"
       />
       <DimLine
         direction="vertical"
@@ -82,7 +82,7 @@ export default function LayoutInspector() {
           bottom: 0,
           right: 'calc(env(safe-area-inset-right, 0px) + 40px)',
         }}
-        color="red"
+        color="var(--color-red)"
       />
     </div>
   );
