@@ -14,7 +14,7 @@ export default defineConfig({
         'apple-touch-icon.png',
       ],
       manifest: {
-        name: 'Phecda`s playground',
+        name: "Phecda's playground",
         short_name: 'Playground',
         description: 'A web app to try all possibilities.',
         theme_color: '#673ab8',
