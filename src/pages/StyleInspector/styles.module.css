@@ -33,3 +33,29 @@
   place-content: center;
   gap: var(--st-space);
 }
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-half);
+  padding: var(--st-space) 0;
+}
+
+.formItem {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-half);
+}
+
+.formItem > label {
+  flex: none;
+}
+
+.formItem > input {
+  flex: auto;
+}
+
+.formActions {
+  flex-basis: 100%;
+}

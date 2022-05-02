@@ -1,5 +1,6 @@
 import styles from './styles.module.css';
 import { ColorCell } from './ColorCell';
+import { useEffect, useState } from 'preact/hooks';
 
 const colors = [
   {
@@ -38,10 +39,59 @@ const colors = [
 ];
 
 export default function StyleInspector() {
+  const [mq, setMQ] = useState('(display-mode: standalone)');
+  const [mqMsg, setMQMsg] = useState('');
+  useEffect(() => {
+    const updateMsg = (e: { matches: boolean; media: string }) => {
+      setMQMsg(`@media ${e.media}: ${e.matches}`);
+    };
+    const mql = window.matchMedia(mq);
+    updateMsg(mql);
+    mql.addEventListener('change', updateMsg);
+    return () => {
+      mql.removeEventListener('change', updateMsg);
+    };
+  }, [mq]);
   return (
     <div className="safe-background bg-below-top-bar">
       <main className="st-content wide-content">
         <h1>Styles</h1>
+        <h2>Media Query</h2>
+        <p>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media"
+            target="_blank"
+            rel="noreferrer"
+          >
+            MDN Reference
+          </a>
+        </p>
+        <form
+          className={styles.form}
+          onSubmit={e => {
+            e.preventDefault();
+            const formData = new FormData(e.target! as HTMLFormElement);
+            const { mediaQuery } = Object.fromEntries(formData);
+            if (typeof mediaQuery === 'string') {
+              setMQ(mediaQuery);
+            }
+          }}
+        >
+          <div className={styles.formItem}>
+            <label htmlFor="mediaQuery">@media </label>
+            <input
+              id="mq"
+              name="mediaQuery"
+              type="text"
+              autoCapitalize="off"
+              placeholder="(display-mode: standalone)"
+            />
+          </div>
+          <div className={styles.formActions}>
+            <input type="submit" value="Query" />
+          </div>
+        </form>
+        <p>{mqMsg}</p>
         <h2>Palette</h2>
         <p>
           The color scheme from{' '}
