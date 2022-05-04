@@ -122,6 +122,7 @@ export function MediaQuery() {
             {!enums && (
               <input
                 type="text"
+                placeholder="value"
                 value={mqValue}
                 onChange={e => {
                   setMQValue((e.target as HTMLInputElement).value);
