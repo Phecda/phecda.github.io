@@ -44,18 +44,25 @@
 .formItem {
   flex: 1 1 auto;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--st-space-half);
+  font-size: 16px;
+}
+
+.formItemContent {
+  flex: auto;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+@media (any-pointer: coarse) {
+  .formItem {
+    font-size: 20px;
+  }
 }
 
 .formItem > label {
   flex: none;
-}
-
-.formItem > input {
-  flex: auto;
-}
-
-.formActions {
-  flex-basis: 100%;
 }
