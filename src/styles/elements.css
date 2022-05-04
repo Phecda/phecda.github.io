@@ -44,3 +44,8 @@ a:visited {
   margin-left: auto;
   margin-right: auto;
 }
+
+.khaenriah-text {
+  font-family: KhaenriahNeue;
+  line-height: 1.5;
+}
