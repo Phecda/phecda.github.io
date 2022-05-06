@@ -38,7 +38,7 @@ const prefixes = ['', 'min-', 'max-'];
 export function MediaQuery() {
   const [mqIndex, setMQIndex] = useState(21);
   const [prefix, setPrefix] = useState(prefixes[0]);
-  const [mqValue, setMQValue] = useState<number | string>('light');
+  const [mqValue, setMQValue] = useState<number | string | undefined>('light');
   const [mqMsg, setMQMsg] = useState('');
   useEffect(() => {
     const updateMsg = (e: { matches: boolean; media: string }) => {
@@ -49,7 +49,10 @@ export function MediaQuery() {
       }
     };
     const [name] = mediaFeatures[mqIndex];
-    const queryString = `(${prefix}${name}: ${mqValue})`;
+    let queryString = `(${prefix}${name})`;
+    if (mqValue || mqValue === 0) {
+      queryString = queryString.replace(/\)$/, `: ${mqValue})`);
+    }
     console.log('qs', queryString);
     const mql = window.matchMedia(queryString);
     updateMsg(mql);
@@ -93,7 +96,7 @@ export function MediaQuery() {
                 const index = Number((e.target as HTMLSelectElement).value);
                 const [, newEnums] = mediaFeatures[index];
                 setPrefix('');
-                setMQValue(newEnums?.[0] ?? '');
+                setMQValue(newEnums?.[0]);
                 setMQIndex(index);
               }}
             >
