@@ -1,0 +1,31 @@
+.inputArea {
+  font-family: monospace;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(9, 40px);
+  grid-template-rows: repeat(9, 40px);
+}
+
+.cell {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--color-separator);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activeRowCell {
+  border-top-color: var(--color-red);
+  border-bottom-color: var(--color-red);
+}
+
+.activeColumnCell {
+  border-left-color: var(--color-red);
+  border-right-color: var(--color-red);
+}

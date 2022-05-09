@@ -31,6 +31,13 @@ export default function PageHeader() {
             >
               Style
             </Link>
+            <Link
+              className={styles.link}
+              activeClassName={styles.matchedLink}
+              href="/sudoku"
+            >
+              Sudoku
+            </Link>
           </div>
         </nav>
       </div>
