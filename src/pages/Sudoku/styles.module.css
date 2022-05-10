@@ -29,3 +29,32 @@
   border-left-color: var(--color-red);
   border-right-color: var(--color-red);
 }
+
+.activeValueCell {
+  border-color: var(--color-red);
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.key {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-separator);
+  position: relative;
+  font-size: 28px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.keyCount {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: small;
+  line-height: 1;
+}

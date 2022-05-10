@@ -8,20 +8,24 @@ export const CellView = memo<{
   cell: Cell;
   rowIndex: number;
   colIndex: number;
-  onSetActive: (pos: [number, number]) => void;
-  active?: [number, number];
+  onSetActive: (pos: [number, number, Cell]) => void;
+  active?: [number, number, Cell];
+  flag: boolean;
 }>(({ cell, rowIndex, colIndex, onSetActive, active }) => {
   const blockIndex = Math.floor(rowIndex / 3) * 3 + Math.floor(colIndex / 3);
 
   return (
     <div
       onClick={() => {
-        onSetActive([rowIndex, colIndex]);
+        onSetActive([rowIndex, colIndex, cell]);
       }}
       className={combineClassName(
         styles.cell,
         active?.[0] === rowIndex && styles.activeRowCell,
-        active?.[1] === colIndex && styles.activeColumnCell
+        active?.[1] === colIndex && styles.activeColumnCell,
+        active?.[2].value &&
+          active[2].value === cell.value &&
+          styles.activeValueCell
       )}
       style={{
         fontSize: cell.value > 0 ? 28 : 16,
@@ -34,7 +38,7 @@ export const CellView = memo<{
           blockIndex % 2 === 0 ? 'var(--color-bg-2)' : 'var(--color-bg-3)',
       }}
     >
-      <div>{cell.value || cell.getRemains().join(' ')}</div>
+      <div>{cell.value || cell.choices.join(' ')}</div>
     </div>
   );
 });
@@ -46,8 +50,9 @@ export function TableView({ rows }: { rows: number[][] }) {
     return t;
   }, [rows]);
 
-  const [activePos, setActivePos] = useState<[number, number]>();
-
+  const [activePos, setActivePos] = useState<[number, number, Cell]>();
+  const [flag, setFlag] = useState(false);
+  const toggle = () => setFlag(f => !f);
   return (
     <div>
       <div className={styles.container}>
@@ -56,6 +61,7 @@ export function TableView({ rows }: { rows: number[][] }) {
             {row.map((c, colIndex) => (
               <CellView
                 key={colIndex}
+                flag={flag}
                 active={activePos}
                 onSetActive={setActivePos}
                 rowIndex={rowIndex}
@@ -66,12 +72,41 @@ export function TableView({ rows }: { rows: number[][] }) {
           </Fragment>
         ))}
       </div>
+      <div className={styles.keyboard}>
+        {validNumbers.map(v => {
+          const remains = table.getNumberRemainCount(v);
+          return (
+            <button
+              onClick={() => {
+                console.log(v);
+              }}
+              disabled={!remains}
+              className={styles.key}
+              key={v}
+            >
+              {v}
+              <div className={styles.keyCount}>{remains}</div>
+            </button>
+          );
+        })}
+      </div>
       <div>
-        {validNumbers.map(v => (
-          <div key={v}>
-            {v} - {table.getNumberRemainCount(v)}
-          </div>
-        ))}
+        <button
+          onClick={() => {
+            table.updateCellChoices();
+            toggle();
+          }}
+        >
+          Update
+        </button>
+        <button
+          onClick={() => {
+            table.fillBlanks();
+            toggle();
+          }}
+        >
+          Fill
+        </button>
       </div>
     </div>
   );

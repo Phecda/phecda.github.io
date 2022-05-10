@@ -3,6 +3,7 @@ export const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export class Area {
   public index: number;
   public arr: Cell[] = [];
+  public done = false;
 
   constructor(i: number) {
     this.index = i;
@@ -17,7 +18,12 @@ export class Area {
   getRemains() {
     const filled = this.arr.map(c => c.value).filter(v => v);
     const remains = validNumbers.filter(n => !filled.includes(n));
+    this.done = !remains.length;
     return remains;
+  }
+  getEmptyCells() {
+    if (this.done) return [];
+    return this.arr.filter(c => !c.value);
   }
   has(num: number) {
     return this.arr.map(c => c.value).includes(num);
@@ -28,11 +34,12 @@ export class Area {
 }
 
 export class Cell {
-  public readonly value: number;
+  public value: number;
   private row: Area;
   private col: Area;
   private block: Area;
   public readonly editable: boolean;
+  public choices: number[] = [];
   constructor(v: number, r: Area, c: Area, b: Area) {
     this.value = v;
     this.editable = v === 0;
@@ -49,23 +56,10 @@ export class Cell {
     );
   }
   getRemains() {
-    const firstStep = this.row
+    return this.row
       .getRemains()
       .filter(n => this.col.getRemains().includes(n))
       .filter(n => this.block.getRemains().includes(n));
-    /**
-     *  752136948
-        184070000
-        396480100
-        070👈(shall be 3)010060
-        000300400
-        000007300
-        000003001
-        861200700
-        000801250
-     */
-    // TODO: 通过夹击确定值的算法
-    return firstStep;
   }
 }
 
@@ -73,6 +67,8 @@ export class Table {
   private rows: Area[] = [];
   private columns: Area[] = [];
   private blocks: Area[] = [];
+
+  private blanks: Cell[] = [];
 
   public load(raw: number[][]) {
     this.rows = new Array(9).fill(true).map((_, i) => new Area(i));
@@ -95,8 +91,58 @@ export class Table {
         rowArea.load(cell, indexInRow);
         colArea.load(cell, indexInCol);
         blockArea.load(cell, indexInBlock);
+        if (cell.editable) {
+          this.blanks.push(cell);
+        }
       });
     });
+  }
+
+  private findOnlyOneChoiceCell(areas: Area[]) {
+    areas.forEach(area => {
+      if (!area.done) {
+        const emptyCellsHere = area.getEmptyCells();
+        area.getRemains().forEach(remaining => {
+          let count = 0;
+          let prevIndex = -1;
+          emptyCellsHere
+            .map(c => c.choices)
+            .forEach((c, i) => {
+              if (c.includes(remaining)) {
+                count += 1;
+                prevIndex = i;
+              }
+            });
+          if (count === 1) {
+            const cell = emptyCellsHere[prevIndex];
+            cell.choices = [remaining];
+          }
+        });
+      }
+    });
+  }
+  public updateCellChoices() {
+    // 1. 列出每个格子可能的值
+    this.blanks.forEach(cell => {
+      cell.choices = cell.getRemains();
+    });
+
+    // 2. 如果一个数在当前区域只有一个可能出现的格子，那么剔除该格子其他可能的值
+    this.findOnlyOneChoiceCell(this.rows);
+    this.findOnlyOneChoiceCell(this.columns);
+    this.findOnlyOneChoiceCell(this.blocks);
+
+    // 3. 如果当前区域内有 n 个格子都可能出现相同的 n 个数字，那么将这 n 个数字从其他格子剔除（2<n<9）
+  }
+
+  public fillBlanks() {
+    this.blanks.forEach(blank => {
+      if (blank.choices.length === 1) {
+        blank.value = blank.choices[0];
+        blank.choices = [];
+      }
+    });
+    this.blanks = this.blanks.filter(c => !c.value);
   }
 
   public getNumberCount(num: number) {
