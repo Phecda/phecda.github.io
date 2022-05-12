@@ -23,7 +23,6 @@ export default function SudokuPage() {
                 const rows = value.split('\n').filter(r => !!r);
                 if (rows.length === 9) {
                   if (!rows.find(row => !/^\d{9}$/.test(row))) {
-                    console.log('matched');
                     const newRaw: number[][] = [];
                     rows.forEach(row => {
                       const numberRow: number[] = [];
@@ -38,13 +37,11 @@ export default function SudokuPage() {
                       }
                       newRaw.push(numberRow);
                     });
-                    console.log(newRaw);
                     setRaw(newRaw);
                     return;
                   }
                 }
               }
-              console.log('no matched');
               setRaw(undefined);
             }}
           >

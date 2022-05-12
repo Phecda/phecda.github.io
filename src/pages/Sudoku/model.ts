@@ -9,18 +9,20 @@ export class Area {
     this.index = i;
   }
 
+  get remains() {
+    const filled = this.arr.map(c => c.value).filter(v => v);
+    const remains = validNumbers.filter(n => !filled.includes(n));
+    this.done = !remains.length;
+    return remains;
+  }
+
   load(cell: Cell, at: number) {
     this.arr[at] = cell;
   }
   canFillNumber(num: number) {
     return !this.has(num);
   }
-  getRemains() {
-    const filled = this.arr.map(c => c.value).filter(v => v);
-    const remains = validNumbers.filter(n => !filled.includes(n));
-    this.done = !remains.length;
-    return remains;
-  }
+
   getEmptyCells() {
     if (this.done) return [];
     return this.arr.filter(c => !c.value);
@@ -31,6 +33,72 @@ export class Area {
   getCell(index: number) {
     return this.arr[index];
   }
+
+  getRemainPositionMap() {
+    const rpMap: Record<number, number[]> = {};
+    this.arr.forEach((cell, pos) => {
+      if (cell.value) return;
+      cell.choices.forEach(remaining => {
+        const record = rpMap[remaining];
+        if (!record) {
+          rpMap[remaining] = [pos];
+        } else {
+          record.push(pos);
+        }
+      });
+    });
+    return rpMap;
+  }
+
+  getPositionRemainMap() {
+    const prMap: Record<number, number[]> = {};
+    this.arr.forEach((cell, pos) => {
+      if (cell.value) return;
+      prMap[pos] = cell.choices;
+    });
+    return prMap;
+  }
+
+  /**
+   *
+   * @param n n >= 2
+   * @returns
+   */
+  reduceChoices(n: number) {
+    const prMap = this.getPositionRemainMap();
+    const temp1 = Object.entries(prMap);
+    const temp2 = temp1.filter(([, s]) => s.length === n);
+    if (temp2.length < n || temp1.length === temp2.length) return;
+    const states: number[][] = [];
+    temp2.forEach(([, state], _, arr) => {
+      if (states.find(v => arrayIdentical(v, state))) return;
+      const identicalPositions = arr.filter(([, s]) =>
+        arrayIdentical(s, state)
+      );
+      if (identicalPositions.length === n) {
+        states.push(state);
+      }
+    });
+    if (states.length) {
+      const emptyCells = this.getEmptyCells();
+      emptyCells.forEach(cell => {
+        states.forEach(state => {
+          if (arrayIdentical(cell.choices, state)) return;
+          const newChoices = cell.choices.filter(v => !state.includes(v));
+          if (!arrayIdentical(newChoices, cell.choices)) {
+            cell.choices = newChoices;
+          }
+        });
+      });
+    }
+  }
+}
+
+/**
+ * 只适用于 a b 均没有重复元素的情况
+ */
+function arrayIdentical(a: number[], b: number[]) {
+  return a.length > 0 && a.length === b.length && a.every(v => b.includes(v));
 }
 
 export class Cell {
@@ -56,10 +124,9 @@ export class Cell {
     );
   }
   getRemains() {
-    return this.row
-      .getRemains()
-      .filter(n => this.col.getRemains().includes(n))
-      .filter(n => this.block.getRemains().includes(n));
+    return this.row.remains
+      .filter(n => this.col.remains.includes(n))
+      .filter(n => this.block.remains.includes(n));
   }
 }
 
@@ -81,7 +148,6 @@ export class Table {
         const blockIndex =
           Math.floor(rowIndex / 3) * 3 + Math.floor(colIndex / 3);
         const blockArea = this.blocks[blockIndex];
-        console.log('load row', rowIndex, colIndex, 'with', col);
         const cell = new Cell(col, rowArea, colArea, blockArea);
 
         const indexInRow = colIndex;
@@ -98,11 +164,12 @@ export class Table {
     });
   }
 
-  private findOnlyOneChoiceCell(areas: Area[]) {
+  private findOnlyOneChoiceCellIn(areas: Area[]) {
+    let changed = false;
     areas.forEach(area => {
       if (!area.done) {
         const emptyCellsHere = area.getEmptyCells();
-        area.getRemains().forEach(remaining => {
+        area.remains.forEach(remaining => {
           let count = 0;
           let prevIndex = -1;
           emptyCellsHere
@@ -116,11 +183,27 @@ export class Table {
           if (count === 1) {
             const cell = emptyCellsHere[prevIndex];
             cell.choices = [remaining];
+            changed = true;
           }
         });
       }
     });
+    return changed;
   }
+  private findOnlyOneChoiceCell() {
+    return (
+      this.findOnlyOneChoiceCellIn(this.rows) ||
+      this.findOnlyOneChoiceCellIn(this.columns) ||
+      this.findOnlyOneChoiceCellIn(this.blocks)
+    );
+  }
+
+  private reduceChoicesIn(areas: Area[], num: number) {
+    areas.forEach(area => {
+      area.reduceChoices(num);
+    });
+  }
+
   public updateCellChoices() {
     // 1. 列出每个格子可能的值
     this.blanks.forEach(cell => {
@@ -128,11 +211,23 @@ export class Table {
     });
 
     // 2. 如果一个数在当前区域只有一个可能出现的格子，那么剔除该格子其他可能的值
-    this.findOnlyOneChoiceCell(this.rows);
-    this.findOnlyOneChoiceCell(this.columns);
-    this.findOnlyOneChoiceCell(this.blocks);
+    if (this.findOnlyOneChoiceCell()) return;
 
     // 3. 如果当前区域内有 n 个格子都可能出现相同的 n 个数字，那么将这 n 个数字从其他格子剔除（2<n<9）
+    this.reduceExclusiveN();
+  }
+
+  private reduceExclusiveN() {
+    let num = 2;
+    const queue = [this.rows, this.columns, this.blocks];
+    let index = 0;
+    while (num <= 4) {
+      const current = queue[index];
+      this.reduceChoicesIn(current, num);
+      console.log('loop changed', num, index);
+      num = num + Math.floor(index / 2);
+      index = (index + 1) % 3;
+    }
   }
 
   public fillBlanks() {
