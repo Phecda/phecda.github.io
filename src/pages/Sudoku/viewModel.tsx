@@ -1,108 +1,148 @@
-import { useMemo, useState } from 'preact/hooks';
-import { Fragment, memo } from 'preact/compat';
-import { Cell, Table, validNumbers } from './model';
+import { useEffect, useMemo, useState } from 'preact/hooks';
+import React, { Fragment } from 'preact/compat';
+import { enableMapSet } from 'immer';
+import { useImmer } from 'use-immer';
 import styles from './styles.module.css';
 import { combineClassName } from '@/utils/combineClassName';
+import {
+  blocks,
+  columns,
+  getBlockIndex,
+  getIndexes,
+  rows,
+  validNumbers,
+} from './utils';
 
-export const CellView = memo<{
-  cell: Cell;
-  rowIndex: number;
-  colIndex: number;
-  onSetActive: (pos: [number, number, Cell]) => void;
-  active?: [number, number, Cell];
-  flag: boolean;
-}>(({ cell, rowIndex, colIndex, onSetActive, active }) => {
-  const blockIndex = Math.floor(rowIndex / 3) * 3 + Math.floor(colIndex / 3);
+enableMapSet();
 
+type Position = [number, number];
+
+const CellView: React.FC<{
+  value: number;
+  choices: number[];
+  activeRow: boolean;
+  activeCol: boolean;
+  activeNum: boolean;
+  editable: boolean;
+  backgroundColor: string;
+  onClick: () => void;
+}> = ({
+  value,
+  choices,
+  activeNum,
+  activeCol,
+  activeRow,
+  editable,
+  backgroundColor,
+  onClick,
+}) => {
   return (
     <div
-      onClick={() => {
-        onSetActive([rowIndex, colIndex, cell]);
-      }}
       className={combineClassName(
         styles.cell,
-        active?.[0] === rowIndex && styles.activeRowCell,
-        active?.[1] === colIndex && styles.activeColumnCell,
-        active?.[2].value &&
-          active[2].value === cell.value &&
-          styles.activeValueCell
+        activeRow && styles.activeRowCell,
+        activeCol && styles.activeColumnCell,
+        activeNum && styles.activeValueCell
       )}
+      data-filled={value > 0}
+      data-editable={editable}
       style={{
-        fontSize: cell.value > 0 ? 28 : 16,
-        color: cell.editable
-          ? cell.value > 0
-            ? 'var(--color-link)'
-            : 'var(--color-text-2)'
-          : 'var(--color-text-1)',
-        backgroundColor:
-          blockIndex % 2 === 0 ? 'var(--color-bg-2)' : 'var(--color-bg-3)',
+        backgroundColor,
       }}
+      onClick={onClick}
     >
-      <div>{cell.value || cell.choices.join(' ')}</div>
+      <div>{value || choices.join(' ')}</div>
     </div>
   );
-});
+};
 
-export function TableView({ rows }: { rows: number[][] }) {
-  const table = useMemo(() => {
-    const t = new Table();
-    t.load(rows);
-    return t;
-  }, [rows]);
+export function TableView({ raw }: { raw: number[] }) {
+  const [cells, setCells] = useImmer(raw);
+  const areaRemaining = useMemo(() => {
+    const getRemains = (areas: number[][]) => {
+      return areas.map(area => {
+        const filled = area.map(i => cells[i]).filter(v => !!v);
+        return validNumbers.filter(v => !filled.includes(v));
+      });
+    };
+    return {
+      row: getRemains(rows),
+      col: getRemains(columns),
+      block: getRemains(blocks),
+    };
+  }, [cells]);
+  const [choiceRecord, setChoices] = useImmer(() => {
+    return raw.map(num => (num ? [] : validNumbers.filter(v => v !== num)));
+  });
+  const [activePos, setActivePos] = useState<Position>();
+  const [activeNum, setActiveNum] = useState<number>();
 
-  const [activePos, setActivePos] = useState<[number, number, Cell]>();
-  const [flag, setFlag] = useState(false);
-  const toggle = () => setFlag(f => !f);
+  const [activeRow, activeCol] = activePos ?? [];
+
+  useEffect(() => {
+    setChoices(draft => {
+      draft.forEach((choices, index) => {
+        const { rowIndex, colIndex, blockIndex } = getIndexes(index);
+        const { row, col, block } = areaRemaining;
+        const [rr, cr, br] = [row[rowIndex], col[colIndex], block[blockIndex]];
+        draft[index] = choices
+          .filter(v => rr.includes(v))
+          .filter(v => cr.includes(v))
+          .filter(v => br.includes(v));
+      });
+    });
+  }, [areaRemaining, setChoices]);
+
+  useEffect(() => {
+    setCells(raw);
+  }, [raw, setCells]);
+
   return (
     <div>
       <div className={styles.container}>
         {rows.map((row, rowIndex) => (
           <Fragment key={rowIndex}>
-            {row.map((c, colIndex) => (
-              <CellView
-                key={colIndex}
-                flag={flag}
-                active={activePos}
-                onSetActive={setActivePos}
-                rowIndex={rowIndex}
-                colIndex={colIndex}
-                cell={table.getCell(rowIndex, colIndex)}
-              />
-            ))}
+            {row.map((index, colIndex) => {
+              const value = cells[index];
+              const blockIndex = getBlockIndex(rowIndex, colIndex);
+              const choices = choiceRecord[index];
+
+              return (
+                <CellView
+                  key={colIndex}
+                  value={value}
+                  choices={choices}
+                  activeNum={activeNum === value}
+                  activeCol={activeCol === colIndex}
+                  activeRow={activeRow === rowIndex}
+                  editable={!raw[index]}
+                  backgroundColor={
+                    blockIndex % 2 === 0
+                      ? 'var(--color-bg-2)'
+                      : 'var(--color-bg-3)'
+                  }
+                  onClick={() => {
+                    setActiveNum(value || undefined);
+                    setActivePos([rowIndex, colIndex]);
+                  }}
+                />
+              );
+            })}
           </Fragment>
         ))}
       </div>
-      <div className={styles.keyboard}>
-        {validNumbers.map(v => {
-          const remains = table.getNumberRemainCount(v);
-          return (
-            <button
-              onClick={() => {
-                console.log(v);
-              }}
-              disabled={!remains}
-              className={styles.key}
-              key={v}
-            >
-              {v}
-              <div className={styles.keyCount}>{remains}</div>
-            </button>
-          );
-        })}
-      </div>
+      <div className={styles.keyboard} />
       <div>
+        <button>Update</button>
         <button
           onClick={() => {
-            table.updateCellChoices();
-            toggle();
-          }}
-        >
-          Update
-        </button>
-        <button
-          onClick={() => {
-            table.fillBlanks();
-            toggle();
+            setCells(draft => {
+              draft.forEach((cell, index) => {
+                if (choiceRecord[index].length === 1) {
+                  draft[index] = choiceRecord[index][0];
+                }
+              });
+            });
           }}
         >
           Fill

@@ -4,7 +4,8 @@ import { TableView } from './viewModel';
 
 export default function SudokuPage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [raw, setRaw] = useState<number[][]>();
+  const [raw, setRaw] = useState<number[]>();
+
   return (
     <div className="safe-background bg-below-top-bar">
       <main className="st-content wide-content">
@@ -20,27 +21,14 @@ export default function SudokuPage() {
             onClick={() => {
               const value = textareaRef.current?.value;
               if (value) {
-                const rows = value.split('\n').filter(r => !!r);
-                if (rows.length === 9) {
-                  if (!rows.find(row => !/^\d{9}$/.test(row))) {
-                    const newRaw: number[][] = [];
-                    rows.forEach(row => {
-                      const numberRow: number[] = [];
-                      for (
-                        let colIndex = 0;
-                        colIndex < row.length;
-                        colIndex++
-                      ) {
-                        const char = row[colIndex];
-                        const num = parseInt(char, 10);
-                        numberRow.push(num);
-                      }
-                      newRaw.push(numberRow);
-                    });
-                    setRaw(newRaw);
-                    return;
-                  }
+                const str = value.replace(/[^\d]/g, '');
+                if (str.length !== 81) {
+                  window.alert(`Only ${str.length} cells, not enough!`);
+                } else {
+                  const numbers = str.split('').map(e => parseInt(e, 10));
+                  setRaw(numbers);
                 }
+                return;
               }
               setRaw(undefined);
             }}
@@ -48,7 +36,7 @@ export default function SudokuPage() {
             confirm
           </button>
         </div>
-        {raw && <TableView rows={raw} />}
+        {raw && <TableView raw={raw} />}
       </main>
     </div>
   );
