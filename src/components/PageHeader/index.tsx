@@ -31,6 +31,13 @@ export default function PageHeader() {
             >
               Style
             </Link>
+            <Link
+              className={styles.link}
+              activeClassName={styles.matchedLink}
+              href="/inputs"
+            >
+              Inputs
+            </Link>
           </div>
         </nav>
       </div>

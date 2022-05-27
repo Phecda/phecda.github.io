@@ -25,6 +25,11 @@ export default function PageRouter() {
           loading={renderRouteLoading}
           getComponent={() => import('../StyleInspector').then(m => m.default)}
         />
+        <AsyncRoute
+          path="/inputs"
+          loading={renderRouteLoading}
+          getComponent={() => import('../HTMLInput').then(m => m.default)}
+        />
         <Route default component={NotFound} />
       </Router>
     </>

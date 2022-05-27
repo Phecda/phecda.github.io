@@ -1,0 +1,11 @@
+.typeTable input[type='file'] {
+  width: 100%;
+}
+
+.inputField {
+  margin: var(--st-space-half) 0;
+}
+
+.inputField label {
+  margin-right: 0.75rem;
+}
