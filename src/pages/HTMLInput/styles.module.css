@@ -9,3 +9,28 @@
 .inputField label {
   margin-right: 0.75rem;
 }
+
+.formItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--st-space-half);
+  margin: var(--st-space-half) 0;
+}
+
+.formItem label {
+  text-transform: capitalize;
+}
+
+.formItem input[type='checkbox'],
+.formItem input[type='radio'] {
+  width: 1em;
+  height: 1em;
+}
+
+@media (any-pointer: coarse) {
+  .formItem {
+    margin: var(--st-space) 0;
+    font-size: larger;
+  }
+}
