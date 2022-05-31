@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+import type { JSXInternal } from 'preact/src/jsx';
 import styles from './styles.module.css';
 
 const FormItem: FunctionComponent = ({ children }) => {
@@ -24,11 +25,23 @@ const FormRadio: FunctionComponent<{
   value: string | number;
   name: string;
 }> = ({ label, value, name }) => {
-  const id = `c-${name}-${value}`;
+  const id = `r-${name}-${value}`;
   return (
     <FormItem>
       <input type="radio" id={id} name={name} value={value} />
       {!!label && <label htmlFor={id}>{label}</label>}
+    </FormItem>
+  );
+};
+
+const FormInput: FunctionComponent<
+  { label?: string } & JSXInternal.HTMLAttributes<HTMLInputElement>
+> = ({ label, name, id, ...inputProps }) => {
+  const defaultId = id ?? `fi-${name}`;
+  return (
+    <FormItem>
+      {!!label && <label htmlFor={defaultId}>{label}</label>}
+      <input name={name} id={defaultId} {...inputProps} />
     </FormItem>
   );
 };
@@ -43,11 +56,21 @@ export default function TypeGallery() {
       action=""
       onSubmit={e => {
         e.preventDefault();
-        console.log(e);
         const formData = new FormData(e.target as HTMLFormElement);
+        const obj: Record<string, unknown> = {};
         for (const [key, value] of formData.entries()) {
-          console.log(key, value);
+          const already = obj[key];
+          if (already) {
+            if (Array.isArray(already)) {
+              already.push(value);
+            } else {
+              obj[key] = [already, value];
+            }
+          } else {
+            obj[key] = value;
+          }
         }
+        console.log(obj);
       }}
     >
       <fieldset name="checkbox">
@@ -74,28 +97,37 @@ export default function TypeGallery() {
       </fieldset>
       <fieldset name="date">
         <legend>Time</legend>
-        <FormItem>
-          <label>Date</label>
-          <input type="date" name="date" />
-        </FormItem>
-        <FormItem>
-          <label>Time</label>
-          <input type="time" name="time" />
-        </FormItem>
-        <FormItem>
-          <label>DateTime</label>
-          <input type="datetime-local" name="localDateTime" />
-        </FormItem>
-        <FormItem>
-          <label>Month</label>
-          <input type="month" name="month" />
-        </FormItem>
-        <FormItem>
-          <label>Week</label>
-          <input type="week" name="week" />
-        </FormItem>
+        <FormInput label="Date" type="date" name="date" />
+        <FormInput label="Time" type="time" name="time" />
+        <FormInput
+          label="DateTime"
+          type="datetime-local"
+          name="localDateTime"
+        />
+        <FormInput label="Month" type="month" name="month" />
+        <FormInput label="Week" type="week" name="week" />
       </fieldset>
-      <input type="submit" />
+      <fieldset name="text">
+        <legend>Something like text</legend>
+        <FormInput label="email" type="email" name="email" />
+        <FormInput label="number" type="number" name="number" />
+        <FormInput label="password" type="password" name="password" />
+        <FormInput label="search" type="search" name="search" />
+        <FormInput label="telephone" type="tel" name="tel" />
+        <FormInput label="url" type="url" name="url" />
+      </fieldset>
+      <fieldset name="special">
+        <legend>Special</legend>
+        <FormInput label="color" type="color" name="color" />
+        <FormInput label="file" type="file" name="file" />
+        <FormInput label="range" type="range" name="range" />
+      </fieldset>
+      <fieldset name="actions">
+        <legend>buttons</legend>
+        <FormInput type="submit" />
+        <FormInput type="reset" />
+        <FormInput type="image" alt="image submit button" />
+      </fieldset>
     </form>
   );
 }

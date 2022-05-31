@@ -10,6 +10,19 @@
   margin-right: 0.75rem;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--st-space-half);
+}
+
+.form fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: var(--st-space-half);
+  flex-wrap: wrap;
+}
+
 .formItem {
   display: flex;
   flex-direction: row;
@@ -26,11 +39,4 @@
 .formItem input[type='radio'] {
   width: 1em;
   height: 1em;
-}
-
-@media (any-pointer: coarse) {
-  .formItem {
-    margin: var(--st-space) 0;
-    font-size: larger;
-  }
 }
