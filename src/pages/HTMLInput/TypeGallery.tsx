@@ -36,12 +36,13 @@ const FormRadio: FunctionComponent<{
 
 const FormInput: FunctionComponent<
   { label?: string } & JSXInternal.HTMLAttributes<HTMLInputElement>
-> = ({ label, name, id, ...inputProps }) => {
+> = ({ label, name, id, children, ...inputProps }) => {
   const defaultId = id ?? `fi-${name}`;
   return (
     <FormItem>
       {!!label && <label htmlFor={defaultId}>{label}</label>}
       <input name={name} id={defaultId} {...inputProps} />
+      {children}
     </FormItem>
   );
 };
@@ -112,7 +113,15 @@ export default function TypeGallery() {
         <FormInput label="email" type="email" name="email" />
         <FormInput label="number" type="number" name="number" />
         <FormInput label="password" type="password" name="password" />
-        <FormInput label="search" type="search" name="search" />
+        <FormInput label="search" type="search" name="search" list="trending">
+          <datalist id="trending">
+            <option value="Trending 1" />
+            <option value="Trending 2" />
+            <option value="Trending 3" />
+            <option value="Trending 4" />
+            <option value="Trending 5" />
+          </datalist>
+        </FormInput>
         <FormInput label="telephone" type="tel" name="tel" />
         <FormInput label="url" type="url" name="url" />
       </fieldset>
@@ -120,13 +129,26 @@ export default function TypeGallery() {
         <legend>Special</legend>
         <FormInput label="color" type="color" name="color" />
         <FormInput label="file" type="file" name="file" />
-        <FormInput label="range" type="range" name="range" />
+        <FormInput
+          label="range"
+          type="range"
+          name="range"
+          id="range-input"
+          min={0}
+          max={100}
+          list="range-list"
+        >
+          <datalist id="range-list">
+            <option value={10} />
+            <option value={80} />
+          </datalist>
+        </FormInput>
       </fieldset>
       <fieldset name="actions">
         <legend>buttons</legend>
-        <FormInput type="submit" />
-        <FormInput type="reset" />
-        <FormInput type="image" alt="image submit button" />
+        <FormInput name="submit" type="submit" />
+        <FormInput name="reset" type="reset" />
+        <FormInput name="image-submit" type="image" alt="image submit button" />
       </fieldset>
     </form>
   );

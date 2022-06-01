@@ -1,15 +1,3 @@
-.typeTable input[type='file'] {
-  width: 100%;
-}
-
-.inputField {
-  margin: var(--st-space-half) 0;
-}
-
-.inputField label {
-  margin-right: 0.75rem;
-}
-
 .form {
   display: flex;
   flex-direction: column;
@@ -17,26 +5,24 @@
 }
 
 .form fieldset {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
   gap: var(--st-space-half);
-  flex-wrap: wrap;
+}
+
+.form fieldset[name='checkbox'],
+.form fieldset[name='radio'] {
+  grid-template-columns: repeat(auto-fill, 150px);
 }
 
 .formItem {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   gap: var(--st-space-half);
   margin: var(--st-space-half) 0;
 }
 
 .formItem label {
   text-transform: capitalize;
-}
-
-.formItem input[type='checkbox'],
-.formItem input[type='radio'] {
-  width: 1em;
-  height: 1em;
 }
