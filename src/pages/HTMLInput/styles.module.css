@@ -5,24 +5,34 @@
 }
 
 .form fieldset {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--st-space-half);
 }
 
-.form fieldset[name='checkbox'],
-.form fieldset[name='radio'] {
-  grid-template-columns: repeat(auto-fill, 150px);
+.form fieldset[name='checkbox'] .formItem,
+.form fieldset[name='radio'] .formItem {
+  flex-basis: 150px;
 }
 
 .formItem {
+  flex: 0 0 300px;
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   gap: var(--st-space-half);
   margin: var(--st-space-half) 0;
 }
 
 .formItem label {
   text-transform: capitalize;
+}
+
+.formItem input[type='file'] {
+  max-width: 250px;
+  border: 1px solid var(--color-separator);
+}
+
+.formItem input[type='search'] {
+  border: 1px solid var(--color-separator);
 }

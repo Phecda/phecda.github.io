@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+import { useState } from 'preact/hooks';
 import type { JSXInternal } from 'preact/src/jsx';
 import styles from './styles.module.css';
 
@@ -51,6 +52,7 @@ const elements = ['pyro', 'hydro', 'anemo', 'electro', 'dendro', 'cryo', 'geo'];
 const characters = ['aether', 'lumine'];
 
 export default function TypeGallery() {
+  const [result, setResult] = useState<string>();
   return (
     <form
       className={styles.form}
@@ -71,7 +73,10 @@ export default function TypeGallery() {
             obj[key] = value;
           }
         }
-        console.log(obj);
+        setResult(JSON.stringify(obj, null, 2));
+      }}
+      onReset={() => {
+        setResult('');
       }}
     >
       <fieldset name="checkbox">
@@ -145,10 +150,22 @@ export default function TypeGallery() {
         </FormInput>
       </fieldset>
       <fieldset name="actions">
-        <legend>buttons</legend>
-        <FormInput name="submit" type="submit" />
-        <FormInput name="reset" type="reset" />
-        <FormInput name="image-submit" type="image" alt="image submit button" />
+        <legend>Buttons</legend>
+        <FormItem>
+          <input type="submit" />
+        </FormItem>
+        <FormItem>
+          <input type="reset" />
+        </FormItem>
+        <FormItem>
+          <input type="image" alt="image submit button" />
+        </FormItem>
+      </fieldset>
+      <fieldset name="result">
+        <legend>Result</legend>
+        <output name="result">
+          <pre>{result}</pre>
+        </output>
       </fieldset>
     </form>
   );
