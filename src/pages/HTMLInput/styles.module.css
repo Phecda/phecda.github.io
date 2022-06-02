@@ -16,7 +16,7 @@
 }
 
 .formItem {
-  flex: 0 0 300px;
+  flex: 1 1 300px;
   display: flex;
   flex-direction: row;
   align-items: center;

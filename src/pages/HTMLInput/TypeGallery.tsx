@@ -1,52 +1,6 @@
-import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import type { JSXInternal } from 'preact/src/jsx';
+import { FormCheckbox, FormRadio, FormInput, FormItem } from './formFields';
 import styles from './styles.module.css';
-
-const FormItem: FunctionComponent = ({ children }) => {
-  return <div className={styles.formItem}>{children}</div>;
-};
-
-const FormCheckbox: FunctionComponent<{
-  label?: string;
-  value: string | number;
-  name: string;
-}> = ({ label, value, name }) => {
-  const id = `c-${name}-${value}`;
-  return (
-    <FormItem>
-      <input type="checkbox" id={id} name={name} value={value} />
-      {!!label && <label htmlFor={id}>{label}</label>}
-    </FormItem>
-  );
-};
-
-const FormRadio: FunctionComponent<{
-  label?: string;
-  value: string | number;
-  name: string;
-}> = ({ label, value, name }) => {
-  const id = `r-${name}-${value}`;
-  return (
-    <FormItem>
-      <input type="radio" id={id} name={name} value={value} />
-      {!!label && <label htmlFor={id}>{label}</label>}
-    </FormItem>
-  );
-};
-
-const FormInput: FunctionComponent<
-  { label?: string } & JSXInternal.HTMLAttributes<HTMLInputElement>
-> = ({ label, name, id, children, ...inputProps }) => {
-  const defaultId = id ?? `fi-${name}`;
-  return (
-    <FormItem>
-      {!!label && <label htmlFor={defaultId}>{label}</label>}
-      <input name={name} id={defaultId} {...inputProps} />
-      {children}
-    </FormItem>
-  );
-};
 
 const elements = ['pyro', 'hydro', 'anemo', 'electro', 'dendro', 'cryo', 'geo'];
 const characters = ['aether', 'lumine'];

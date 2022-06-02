@@ -1,3 +1,4 @@
+import { AutoComplete } from './AutoComplete';
 import TypeGallery from './TypeGallery';
 
 export default function HTMLInput() {
@@ -7,6 +8,8 @@ export default function HTMLInput() {
         <h1>Input</h1>
         <h2>Type Gallery</h2>
         <TypeGallery />
+        <h2>Auto Fill</h2>
+        <AutoComplete />
       </main>
     </div>
   );
