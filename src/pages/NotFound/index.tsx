@@ -8,7 +8,7 @@ export default function NotFound() {
         <p>
           Let`s go back to <Link href="/">Home</Link>
         </p>
-      </main> 
+      </main>
     </div>
   );
 }
