@@ -2,7 +2,6 @@
   position: fixed;
   top: 0;
   width: 100%;
-  height: var(--top-nav-bar-height);
   z-index: 30;
   background-color: var(--color-brand);
   padding-left: env(safe-area-inset-left);
@@ -14,6 +13,7 @@
   flex-direction: row;
   gap: var(--st-space);
   padding: 0 var(--st-space);
+  justify-content: space-between;
 }
 
 .navbar a {
@@ -25,15 +25,16 @@
 }
 
 .brand {
-  display: block;
+  flex: none;
 }
 
 .brand > img {
+  display: block;
   width: var(--top-nav-bar-height);
   height: var(--top-nav-bar-height);
 }
 
-.scroll {
+.menu {
   height: var(--top-nav-bar-height);
   display: flex;
   flex-direction: row;

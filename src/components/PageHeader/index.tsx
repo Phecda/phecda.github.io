@@ -1,6 +1,13 @@
 import { Link } from 'preact-router/match';
 import styles from './styles.module.css';
 
+const routes = [
+  { name: 'Device', path: '/device' },
+  { name: 'Layout', path: '/layout' },
+  { name: 'Style', path: '/style' },
+  { name: 'Inputs', path: '/inputs' },
+];
+
 export default function PageHeader() {
   return (
     <div>
@@ -9,35 +16,17 @@ export default function PageHeader() {
           <Link className={styles.brand} href="/">
             <img src="/favicon.svg" />
           </Link>
-          <div className={styles.scroll}>
-            <Link
-              className={styles.link}
-              activeClassName={styles.matchedLink}
-              href="/device"
-            >
-              Device
-            </Link>
-            <Link
-              className={styles.link}
-              activeClassName={styles.matchedLink}
-              href="/layout"
-            >
-              Layout
-            </Link>
-            <Link
-              className={styles.link}
-              activeClassName={styles.matchedLink}
-              href="/style"
-            >
-              Style
-            </Link>
-            <Link
-              className={styles.link}
-              activeClassName={styles.matchedLink}
-              href="/inputs"
-            >
-              Inputs
-            </Link>
+          <div className={styles.menu}>
+            {routes.map(({ name, path }) => (
+              <Link
+                key={path}
+                className={styles.link}
+                activeClassName={styles.matchedLink}
+                href={path}
+              >
+                {name}
+              </Link>
+            ))}
           </div>
         </nav>
       </div>
