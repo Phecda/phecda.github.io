@@ -21,7 +21,7 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@preact/preset-vite": "^2.2.0",
+    "@preact/preset-vite": "2.5.0",
     "@types/history": "^4",
     "@types/jest": "^27.4.1",
     "@types/ua-parser-js": "^0.7.36",
@@ -37,7 +37,7 @@
     "prettier": "^2.6.2",
     "pwa-asset-generator": "^6.0.8",
     "typescript": "^4.6.3",
-    "vite": "^2.9.5",
-    "vite-plugin-pwa": "^0.12.0"
+    "vite": "4.2.2",
+    "vite-plugin-pwa": "0.14.7"
   }
 }
