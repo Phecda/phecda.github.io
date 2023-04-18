@@ -17,12 +17,12 @@ jobs:
           cache: yarn
           cache-dependency-path: '**/yarn.lock'
       - name: yarn cache
-        id: yarn-cahce-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v3
         id: yarn-cache
         with:
-          path: ${{ steps.yarn-cahce-dir-path.outputs.dir }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
