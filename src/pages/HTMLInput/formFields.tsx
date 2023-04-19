@@ -1,8 +1,10 @@
-import { FunctionComponent } from 'preact';
-import type { JSXInternal } from 'preact/src/jsx';
+import { FunctionComponent, InputHTMLAttributes } from 'react';
 import styles from './styles.module.css';
+import { PropsWithChildren } from 'react';
 
-export const FormItem: FunctionComponent = ({ children }) => {
+export const FormItem: FunctionComponent<PropsWithChildren> = ({
+  children,
+}) => {
   return <div className={styles.formItem}>{children}</div>;
 };
 
@@ -35,7 +37,7 @@ export const FormRadio: FunctionComponent<{
 };
 
 export const FormInput: FunctionComponent<
-  { label?: string } & JSXInternal.HTMLAttributes<HTMLInputElement>
+  { label?: string } & InputHTMLAttributes<HTMLInputElement>
 > = ({ label, name, id, children, ...inputProps }) => {
   const defaultId = id ?? `fi-${name}`;
   const defaultLabel = label ?? name;

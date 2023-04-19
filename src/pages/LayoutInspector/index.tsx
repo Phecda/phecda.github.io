@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'react';
 import { DimLine } from './DimLine';
 import styles from './styles.module.css';
 

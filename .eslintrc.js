@@ -7,11 +7,12 @@ module.exports = {
   },
   env: {
     es6: true,
+    node: true,
   },
   root: true,
   parser: '@typescript-eslint/parser',
   extends: [
-    'preact',
+    'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/jsx-runtime',

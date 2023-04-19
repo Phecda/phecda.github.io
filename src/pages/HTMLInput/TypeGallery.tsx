@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 import { FormCheckbox, FormRadio, FormInput, FormItem } from './formFields';
 import styles from './styles.module.css';
 

@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'url';
-import preact from '@preact/preset-vite';
+import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   plugins: [
-    preact(),
+    react(),
     VitePWA({
       includeAssets: [
         'favicon.svg',

@@ -1,10 +1,10 @@
-import { FunctionComponent, JSX } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { CSSProperties, FunctionComponent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { combineClassName } from '@/utils/combineClassName';
 import styles from './styles.module.css';
 
 type DimLineProps = {
-  position: Pick<JSX.CSSProperties, 'top' | 'bottom' | 'left' | 'right'>;
+  position: Pick<CSSProperties, 'top' | 'bottom' | 'left' | 'right'>;
   direction: 'horizontal' | 'vertical';
   color?: string;
 };

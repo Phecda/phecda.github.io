@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 function rgb2hex(color: string) {

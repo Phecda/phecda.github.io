@@ -1,4 +1,4 @@
-import { useMemo } from 'preact/hooks';
+import { useMemo } from 'react';
 import parser from 'ua-parser-js';
 import styles from './styles.module.css';
 
