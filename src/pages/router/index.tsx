@@ -1,37 +1,42 @@
-import Router, { Route } from 'preact-router';
-import AsyncRoute from 'preact-async-route';
-import { hashHistory } from '../history';
+import DeviceInspector from '../DeviceInspector';
 import Home from '../Home';
+import LayoutInspector from '../LayoutInspector';
 import NotFound from '../NotFound';
-import { renderRouteLoading } from './renderRouteLoading';
+import { HashRouter, Switch, Route, RouteProps } from 'react-router-dom';
+import StyleInspector from '../StyleInspector';
+import HTMLInput from '../HTMLInput';
+import PageHeader from '@/components/PageHeader';
+
+const hashRouter: RouteProps[] = [
+  { path: '/', component: Home, exact: true },
+  {
+    path: '/device',
+    component: DeviceInspector,
+  },
+  {
+    path: '/layout',
+    component: LayoutInspector,
+  },
+  {
+    path: '/style',
+    component: StyleInspector,
+  },
+  {
+    path: '/inputs',
+    component: HTMLInput,
+  },
+  { path: '*', component: NotFound },
+];
 
 export default function PageRouter() {
   return (
-    <>
-      <Router history={hashHistory}>
-        <Route path="/" component={Home} />
-        <AsyncRoute
-          path="/device"
-          loading={renderRouteLoading}
-          getComponent={() => import('../DeviceInspector').then(m => m.default)}
-        />
-        <AsyncRoute
-          path="/layout"
-          loading={renderRouteLoading}
-          getComponent={() => import('../LayoutInspector').then(m => m.default)}
-        />
-        <AsyncRoute
-          path="/style"
-          loading={renderRouteLoading}
-          getComponent={() => import('../StyleInspector').then(m => m.default)}
-        />
-        <AsyncRoute
-          path="/inputs"
-          loading={renderRouteLoading}
-          getComponent={() => import('../HTMLInput').then(m => m.default)}
-        />
-        <Route default component={NotFound} />
-      </Router>
-    </>
+    <HashRouter>
+      <PageHeader />
+      <Switch>
+        {hashRouter.map(routeProps => (
+          <Route key={routeProps.path as string} {...routeProps} />
+        ))}
+      </Switch>
+    </HashRouter>
   );
 }

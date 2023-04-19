@@ -1,4 +1,4 @@
-import { Link } from 'preact-router/match';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './styles.module.css';
 
 const routes = [
@@ -13,19 +13,19 @@ export default function PageHeader() {
     <div>
       <div className={styles.navbarContainer}>
         <nav className={`wide-content ${styles.navbar}`}>
-          <Link className={styles.brand} href="/">
+          <Link className={styles.brand} to="/">
             <img src="/favicon.svg" />
           </Link>
           <div className={styles.menu}>
             {routes.map(({ name, path }) => (
-              <Link
+              <NavLink
                 key={path}
                 className={styles.link}
                 activeClassName={styles.matchedLink}
-                href={path}
+                to={path}
               >
                 {name}
-              </Link>
+              </NavLink>
             ))}
           </div>
         </nav>

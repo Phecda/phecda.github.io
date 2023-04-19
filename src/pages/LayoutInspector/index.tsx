@@ -1,4 +1,4 @@
-import { Link } from 'preact-router';
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { DimLine } from './DimLine';
 import styles from './styles.module.css';
@@ -43,7 +43,7 @@ export default function LayoutInspector() {
     <div ref={bgRef} className={`safe-background ${styles.background}`}>
       <div ref={contentRef} className={styles.content}>
         <p>
-          Back to <Link href="/">Home</Link>
+          Back to <Link to="/">Home</Link>
         </p>
         <div className={styles.insetContainer}>
           <div className={styles.insetTop}>{safeInsets.top}</div>
