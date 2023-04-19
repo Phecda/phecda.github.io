@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import parser from 'ua-parser-js';
 import styles from './styles.module.css';
 
-export default function DeviceInspector() {
+export function Component() {
   const { ua, browser, cpu, device, engine, os } = useMemo(() => parser(), []);
   return (
-    <div className={`safe-background bg-below-top-bar ${styles.background}`}>
+    <div className="safe-background">
       <div className="st-content wide-content">
         <h1>Your device</h1>
         <dl className={styles.descList}>
@@ -38,3 +38,5 @@ export default function DeviceInspector() {
     </div>
   );
 }
+
+Component.displayName = 'DeviceInspector';

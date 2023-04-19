@@ -1,5 +1,6 @@
 .navbarContainer {
-  position: fixed;
+  height: var(--top-nav-bar-height);
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 30;
@@ -49,5 +50,8 @@
 }
 
 .matchedLink {
+  line-height: var(--top-nav-bar-height);
+  padding: 0 var(--st-space-half);
   border-bottom: 2px solid white;
+  transition: border-bottom-color 0.3s ease-in-out;
 }

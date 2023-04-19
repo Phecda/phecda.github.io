@@ -38,9 +38,9 @@ const colors = [
   { title: 'separator', list: ['separator', 'separator-opaque'] },
 ];
 
-export default function StyleInspector() {
+export function Component() {
   return (
-    <div className="safe-background bg-below-top-bar">
+    <div className="safe-background">
       <main className="st-content wide-content">
         <h1>Styles</h1>
         <h2>Media Query</h2>
@@ -80,3 +80,5 @@ export default function StyleInspector() {
     </div>
   );
 }
+
+Component.displayName = 'StyleInspector';

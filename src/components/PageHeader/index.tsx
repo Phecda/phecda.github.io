@@ -10,26 +10,25 @@ const routes = [
 
 export default function PageHeader() {
   return (
-    <div>
-      <div className={styles.navbarContainer}>
-        <nav className={`wide-content ${styles.navbar}`}>
-          <Link className={styles.brand} to="/">
-            <img src="/favicon.svg" />
-          </Link>
-          <div className={styles.menu}>
-            {routes.map(({ name, path }) => (
-              <NavLink
-                key={path}
-                className={styles.link}
-                activeClassName={styles.matchedLink}
-                to={path}
-              >
-                {name}
-              </NavLink>
-            ))}
-          </div>
-        </nav>
-      </div>
+    <div className={styles.navbarContainer}>
+      <nav className={`wide-content ${styles.navbar}`}>
+        <Link className={styles.brand} to="/">
+          <img src="/favicon.svg" />
+        </Link>
+        <div className={styles.menu}>
+          {routes.map(({ name, path }) => (
+            <NavLink
+              key={path}
+              className={({ isActive }) =>
+                isActive ? styles.matchedLink : styles.link
+              }
+              to={path}
+            >
+              {name}
+            </NavLink>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }

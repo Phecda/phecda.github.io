@@ -1,9 +1,9 @@
 import { AutoComplete } from './AutoComplete';
 import TypeGallery from './TypeGallery';
 
-export default function HTMLInput() {
+export function Component() {
   return (
-    <div className="safe-background bg-below-top-bar">
+    <div className="safe-background">
       <main className="st-content wide-content">
         <h1>Input</h1>
         <h2>Type Gallery</h2>
@@ -14,3 +14,5 @@ export default function HTMLInput() {
     </div>
   );
 }
+
+Component.displayName = 'HTMLInput';

@@ -10,7 +10,7 @@ type SafeAreaInsets = {
   right: number;
 };
 
-export default function LayoutInspector() {
+export function Component() {
   // TODO: safe area size
   const [safeInsets, setInsets] = useState<SafeAreaInsets>({
     top: 0,
@@ -87,3 +87,5 @@ export default function LayoutInspector() {
     </div>
   );
 }
+
+Component.displayName = 'LayoutInspector';
