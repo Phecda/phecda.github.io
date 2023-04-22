@@ -15,24 +15,24 @@
   gap: var(--st-space);
   padding: 0 var(--st-space);
   justify-content: space-between;
-}
 
-.navbar a {
-  color: white;
-}
+  & a {
+    color: white;
 
-.navbar a:visited {
-  color: white;
+    &:visited {
+      color: white;
+    }
+  }
 }
 
 .brand {
   flex: none;
-}
 
-.brand > img {
-  display: block;
-  width: var(--top-nav-bar-height);
-  height: var(--top-nav-bar-height);
+  & > img {
+    display: block;
+    width: var(--top-nav-bar-height);
+    height: var(--top-nav-bar-height);
+  }
 }
 
 .menu {

@@ -37,12 +37,12 @@
   min-width: 100px;
   text-align: center;
   border: 1px solid var(--color-separator);
-}
 
-.insetContainer > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .insetTop {

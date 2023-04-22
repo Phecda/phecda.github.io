@@ -35,6 +35,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^7.0.0",
     "jest": "^27.5.1",
+    "postcss": "^8.4.23",
+    "postcss-nesting": "^11.2.2",
     "prettier": "^2.6.2",
     "pwa-asset-generator": "^6.0.8",
     "typescript": "^4.6.3",

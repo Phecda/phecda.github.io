@@ -2,17 +2,19 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--st-space-half);
-}
 
-.form fieldset {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--st-space-half);
-}
+  & fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--st-space-half);
 
-.form fieldset[name='checkbox'] .formItem,
-.form fieldset[name='radio'] .formItem {
-  flex-basis: 150px;
+    &[name='checkbox'],
+    &[name='radio'] {
+      .formItem {
+        flex-basis: 150px;
+      }
+    }
+  }
 }
 
 .formItem {
@@ -22,17 +24,17 @@
   align-items: center;
   gap: var(--st-space-half);
   margin: var(--st-space-half) 0;
-}
 
-.formItem label {
-  text-transform: capitalize;
-}
+  & label {
+    text-transform: capitalize;
+  }
 
-.formItem input[type='file'] {
-  max-width: 250px;
-  border: 1px solid var(--color-separator);
-}
+  & input[type='file'] {
+    max-width: 250px;
+    border: 1px solid var(--color-separator);
+  }
 
-.formItem input[type='search'] {
-  border: 1px solid var(--color-separator);
+  & input[type='search'] {
+    border: 1px solid var(--color-separator);
+  }
 }

@@ -47,6 +47,14 @@
   align-items: baseline;
   gap: var(--st-space-half);
   font-size: 16px;
+
+  & > label {
+    flex: none;
+  }
+
+  @media (any-pointer: coarse) {
+    font-size: 20px;
+  }
 }
 
 .formItemContent {
@@ -55,14 +63,4 @@
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px;
-}
-
-@media (any-pointer: coarse) {
-  .formItem {
-    font-size: 20px;
-  }
-}
-
-.formItem > label {
-  flex: none;
 }
