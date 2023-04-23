@@ -1,0 +1,26 @@
+:root {
+  --bs-primary: var(--color-brand);
+  --bs-primary-rgb: 103, 58, 184;
+
+  --bs-blue: var(--color-blue);
+  --bs-indigo: var(--color-indigo);
+  --bs-purple: var(--color-purple);
+  --bs-pink: var(--color-pink);
+  --bs-red: var(--color-red);
+  --bs-orange: var(--color-orange);
+  --bs-yellow: var(--color-yellow);
+  --bs-green: var(--color-green);
+  --bs-teal: var(--color-teal);
+  --bs-cyan: var(--color-cyan);
+
+  --bs-link-color: var(--color-link);
+
+  --bs-success: var(--color-green);
+  --bs-success-rgb: 52, 199, 89;
+  --bs-info: var(--color-cyan);
+  --bs-info-rgb: 50, 173, 230;
+  --bs-warning: var(--color-yellow);
+  --bs-warning-rgb: 255, 204, 0;
+  --bs-danger: var(--color-red);
+  --bs-danger-rgb: 255, 59, 48;
+}
