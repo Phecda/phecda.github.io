@@ -1,3 +1,4 @@
+import { Container } from 'react-bootstrap';
 import styles from './styles.module.css';
 import { ColorCell } from './ColorCell';
 import { MediaQuery } from './MediaQuery';
@@ -41,7 +42,7 @@ const colors = [
 export function Component() {
   return (
     <div className="safe-background">
-      <main className="st-content wide-content">
+      <Container>
         <h1>Styles</h1>
         <h2>Media Query</h2>
         <p>
@@ -76,7 +77,7 @@ export function Component() {
             </div>
           </section>
         ))}
-      </main>
+      </Container>
     </div>
   );
 }

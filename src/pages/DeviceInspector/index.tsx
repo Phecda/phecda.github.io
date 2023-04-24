@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Container } from 'react-bootstrap';
 import parser from 'ua-parser-js';
 import styles from './styles.module.css';
 
@@ -6,7 +7,7 @@ export function Component() {
   const { ua, browser, cpu, device, engine, os } = useMemo(() => parser(), []);
   return (
     <div className="safe-background">
-      <div className="st-content wide-content">
+      <Container>
         <h1>Your device</h1>
         <dl className={styles.descList}>
           <dt>User Agent</dt>
@@ -34,7 +35,7 @@ export function Component() {
               : '-'}
           </dd>
         </dl>
-      </div>
+      </Container>
     </div>
   );
 }
