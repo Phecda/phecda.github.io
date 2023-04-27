@@ -59,6 +59,14 @@ function rgbColorToHex(rgb: string) {
   return `#${hexColor.join('')}`.toUpperCase();
 }
 
+function encodeURIComp(value: string) {
+  return encodeURIComponent(value);
+}
+
+function decodeURIComp(value: string) {
+  return decodeURIComponent(value);
+}
+
 const operations: Record<string, (value: string) => string> = {
   'Encode to Base64': encodeToBase64,
   'Decode from Base64': decodeFromBase64,
@@ -66,6 +74,8 @@ const operations: Record<string, (value: string) => string> = {
   'Decode with JSON': decodeWithJSON,
   'Hex color to RGB color': hexColorToRGB,
   'RGB color to hex color': rgbColorToHex,
+  'Encode URI component': encodeURIComp,
+  'Decode URI component': decodeURIComp,
 };
 
 export function Component() {
