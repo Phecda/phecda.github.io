@@ -28,6 +28,10 @@ const hashRouter = createHashRouter([
         path: 'inputs',
         lazy: () => import('../HTMLInput'),
       },
+      {
+        path: 'quicktools',
+        lazy: () => import('../QuickTools'),
+      },
     ],
   },
   { path: '*', element: <NotFound /> },
