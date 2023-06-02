@@ -8,6 +8,7 @@ const routes = [
   { name: 'Style', path: '/style' },
   { name: 'Inputs', path: '/inputs' },
   { name: 'Quick Tools', path: '/quicktools' },
+  { name: 'Fancy Fonts', path: '/fonts' },
 ];
 
 export default function PageHeader() {

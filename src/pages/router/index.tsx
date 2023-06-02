@@ -32,6 +32,16 @@ const hashRouter = createHashRouter([
         path: 'quicktools',
         lazy: () => import('../QuickTools'),
       },
+      {
+        path: 'fonts',
+        lazy: () => import('../Fonts'),
+        children: [
+          {
+            path: 'article/:slug',
+            lazy: () => import('../Fonts/article'),
+          },
+        ],
+      },
     ],
   },
   { path: '*', element: <NotFound /> },

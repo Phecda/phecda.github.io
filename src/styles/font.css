@@ -2,3 +2,38 @@
   font-family: KhaenriahNeue;
   src: url('/KhaenriahNeue-Regular-2.0.0.otf') format('opentype');
 }
+
+@font-face {
+  font-family: LXGWNeoXiHei;
+  src: url('/LXGWNeoXiHei.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: LuofuNeue;
+  src: url('/LuofuNeue-Regular-0.100.otf') format('opentype');
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: LuofuNeue;
+  src: url('/LuofuNeue-Bold-0.100.otf') format('opentype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: LuofuNeue;
+  src: url('/LuofuNeue-SemiBold-0.100.otf') format('opentype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: LuofuNeue;
+  src: url('/LuofuNeue-Light-0.100.otf') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: LuofuNeue;
+  src: url('/LuofuNeue-ExtraLight-0.100.otf') format('opentype');
+  font-weight: 200;
+}

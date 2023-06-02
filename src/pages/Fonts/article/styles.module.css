@@ -1,0 +1,16 @@
+.container {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.article {
+  font-family: LXGWNeoXiHei;
+  text-align: center;
+
+  &[data-mode='luofu'] {
+    font-family: LuofuNeue;
+    font-size: larger;
+    /* writing-mode: vertical-rl;
+    text-orientation: upright; */
+  }
+}
