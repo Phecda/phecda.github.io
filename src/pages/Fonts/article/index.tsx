@@ -42,7 +42,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   } catch {
     throw new Response(
       `We did not find any articles related to slug "${params.slug}"`,
-      { status: 404, statusText: 'Article Not Found' },
+      { status: 404, statusText: 'Article Not Found' }
     );
   }
 };
