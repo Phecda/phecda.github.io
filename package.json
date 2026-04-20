@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "rsbuild dev",
     "build": "tsc --noEmit && rsbuild build",
-    "lint": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "lint": "biome lint .",
+    "lint:write": "biome lint --write .",
+    "lint-staged": "lint-staged",
+    "format": "biome format --write .",
     "preview": "rsbuild preview",
     "prepare": "husky install",
     "update:splash": "node scripts/generatePWASplash.mjs"
@@ -21,26 +24,20 @@
     "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.12",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
+    "@rsbuild/core": "1.7.5",
+    "@rsbuild/plugin-react": "1.4.6",
     "@types/jest": "^27.4.1",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/ua-parser-js": "^0.7.36",
-    "@typescript-eslint/eslint-plugin": "8.58.2",
-    "@typescript-eslint/parser": "8.58.2",
-    "@rsbuild/core": "1.7.5",
-    "@rsbuild/plugin-react": "1.4.6",
-    "eslint": "8.57.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^7.0.0",
     "jest": "^27.5.1",
+    "lint-staged": "^16.4.0",
     "postcss": "^8.4.23",
     "postcss-nesting": "^11.2.2",
-    "prettier": "^2.6.2",
     "pwa-asset-generator": "^6.0.8",
     "typescript": "6.0.3"
   }
