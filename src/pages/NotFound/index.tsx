@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router';
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <div className="safe-background">
       <Container>

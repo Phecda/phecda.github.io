@@ -1,7 +1,7 @@
 import { createHashRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
-import Home, { HomeIndex } from '../Home';
-import NotFound from '../NotFound';
+import { Home, HomeIndex } from '../Home';
+import { NotFound } from '../NotFound';
 import { routeLoading } from './renderRouteLoading';
 
 const hashRouter = createHashRouter([
@@ -49,6 +49,6 @@ const hashRouter = createHashRouter([
   { path: '*', element: <NotFound /> },
 ]);
 
-export default function PageRouter() {
+export function PageRouter() {
   return <RouterProvider router={hashRouter} />;
 }

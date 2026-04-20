@@ -1,6 +1,6 @@
-import PageHeader from '@/components/PageHeader';
 import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router';
+import { PageHeader } from '@/components/PageHeader';
 
 export function HomeIndex() {
   return (
@@ -13,7 +13,7 @@ export function HomeIndex() {
   );
 }
 
-export default function Home() {
+export function Home() {
   return (
     <>
       <PageHeader />

@@ -1,6 +1,6 @@
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router';
 import styles from './styles.module.css';
-import { Container, Nav, Navbar } from 'react-bootstrap';
 
 const routes = [
   { name: 'Device', path: '/device' },
@@ -11,7 +11,7 @@ const routes = [
   { name: 'Fancy Fonts', path: '/fonts' },
 ];
 
-export default function PageHeader() {
+export function PageHeader() {
   return (
     <Navbar bg="primary" variant="dark" expand="md">
       <Container className={styles.navbar}>

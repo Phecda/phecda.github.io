@@ -1,6 +1,6 @@
 import { Container } from 'react-bootstrap';
 import { AutoComplete } from './AutoComplete';
-import TypeGallery from './TypeGallery';
+import { TypeGallery } from './TypeGallery';
 
 export function Component() {
   return (

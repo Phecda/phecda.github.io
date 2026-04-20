@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FormCheckbox, FormRadio, FormInput, FormItem } from './formFields';
+import { FormCheckbox, FormInput, FormItem, FormRadio } from './formFields';
 import styles from './styles.module.css';
 
 const elements = ['pyro', 'hydro', 'anemo', 'electro', 'dendro', 'cryo', 'geo'];
 const characters = ['aether', 'lumine'];
 
-export default function TypeGallery() {
+export function TypeGallery() {
   const [result, setResult] = useState<string>();
   return (
     <form
