@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { Container } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 export function HomeIndex() {
   return (

@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router';
 import styles from './styles.module.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
@@ -15,14 +15,14 @@ export default function PageHeader() {
   return (
     <Navbar bg="primary" variant="dark" expand="md">
       <Container className={styles.navbar}>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" viewTransition>
           <img src="/favicon.svg" className={styles.favicon} />
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav>
             {routes.map(({ name, path }) => (
-              <Nav.Link key={path} as={NavLink} to={path}>
+              <Nav.Link key={path} as={NavLink} to={path} viewTransition>
                 {name}
               </Nav.Link>
             ))}

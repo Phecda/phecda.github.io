@@ -1,4 +1,5 @@
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter } from 'react-router';
+import { RouterProvider } from 'react-router/dom';
 import Home, { HomeIndex } from '../Home';
 import NotFound from '../NotFound';
 import { routeLoading } from './renderRouteLoading';
@@ -7,6 +8,7 @@ const hashRouter = createHashRouter([
   {
     path: '/',
     element: <Home />,
+    hydrateFallbackElement: routeLoading,
     children: [
       {
         index: true,
@@ -48,5 +50,5 @@ const hashRouter = createHashRouter([
 ]);
 
 export default function PageRouter() {
-  return <RouterProvider router={hashRouter} fallbackElement={routeLoading} />;
+  return <RouterProvider router={hashRouter} />;
 }

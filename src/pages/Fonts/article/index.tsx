@@ -3,8 +3,8 @@ import {
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
-} from 'react-router-dom';
-import type { LoaderFunction } from 'react-router-dom';
+} from 'react-router';
+import type { LoaderFunction } from 'react-router';
 import styles from './styles.module.css';
 import { getFirstLetters } from './utils';
 import { useState } from 'react';
