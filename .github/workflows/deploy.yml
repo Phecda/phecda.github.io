@@ -1,52 +1,57 @@
-name: deploy github pages
+name: Deploy GitHub Pages
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v3
-      - name: actions/setup-node@v3
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.14'
-          cache: yarn
-          cache-dependency-path: '**/yarn.lock'
-      - name: yarn cache
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: yarn install --frozen-lockfile && yarn build
-      - name: upload dist
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-pages
-          path: dist
-          retention-days: 1
 
-  Deploy:
-    needs: Build
-    runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v3
-      - name: download build files
-        uses: actions/download-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          name: build-pages
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build site
+        run: yarn build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
           path: dist
-      - name: deploy
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          branch: gh-pages
-          folder: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
