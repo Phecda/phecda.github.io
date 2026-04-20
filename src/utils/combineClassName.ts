@@ -1,2 +1,6 @@
-export const combineClassName = (...classes: any[]) =>
-  classes.filter(c => !!c && typeof c === 'string').join(' ');
+type ClassName = string | false | null | undefined;
+
+export const combineClassName = (...classes: ClassName[]) =>
+  classes
+    .filter((className): className is string => typeof className === 'string')
+    .join(' ');

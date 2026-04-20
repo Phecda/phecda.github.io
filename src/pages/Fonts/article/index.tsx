@@ -1,13 +1,13 @@
+import { useState } from 'react';
 import { Alert, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import type { LoaderFunction } from 'react-router';
 import {
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
 } from 'react-router';
-import type { LoaderFunction } from 'react-router';
 import styles from './styles.module.css';
 import { getFirstLetters } from './utils';
-import { useState } from 'react';
 
 type ArticleData = {
   title: string;
@@ -39,10 +39,10 @@ export const loader: LoaderFunction = async ({ params }) => {
       paragraphs: paragraphs.map(getFirstLetters),
     };
     return { hanzi, luofu };
-  } catch (error) {
+  } catch {
     throw new Response(
       `We did not find any articles related to slug "${params.slug}"`,
-      { status: 404, statusText: 'Article Not Found' }
+      { status: 404, statusText: 'Article Not Found' },
     );
   }
 };

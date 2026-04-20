@@ -7,7 +7,10 @@ export default function NotFound() {
       <Container>
         <h1>Emm... Why are you here?</h1>
         <p>
-          Let`s go back to <Link to="/" viewTransition>Home</Link>
+          Let`s go back to{' '}
+          <Link to="/" viewTransition>
+            Home
+          </Link>
         </p>
       </Container>
     </div>
