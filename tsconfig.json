@@ -5,21 +5,20 @@
     "jsx": "react-jsx",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "node",
-    "baseUrl": "./",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
-    "types": ["vite-plugin-pwa/client"],
     "resolveJsonModule": true,
     "noEmit": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]
 }

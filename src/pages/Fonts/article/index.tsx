@@ -1,10 +1,10 @@
 import { Alert, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import {
-  LoaderFunction,
   isRouteErrorResponse,
   useLoaderData,
   useRouteError,
 } from 'react-router-dom';
+import type { LoaderFunction } from 'react-router-dom';
 import styles from './styles.module.css';
 import { getFirstLetters } from './utils';
 import { useState } from 'react';

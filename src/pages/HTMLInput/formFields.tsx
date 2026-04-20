@@ -1,6 +1,9 @@
-import { FunctionComponent, InputHTMLAttributes } from 'react';
 import styles from './styles.module.css';
-import { PropsWithChildren } from 'react';
+import type {
+  FunctionComponent,
+  InputHTMLAttributes,
+  PropsWithChildren,
+} from 'react';
 
 export const FormItem: FunctionComponent<PropsWithChildren> = ({
   children,

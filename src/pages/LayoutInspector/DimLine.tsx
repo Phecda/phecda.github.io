@@ -1,5 +1,5 @@
-import { CSSProperties, FunctionComponent } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import type { CSSProperties, FunctionComponent } from 'react';
 import { combineClassName } from '@/utils/combineClassName';
 import styles from './styles.module.css';
 
