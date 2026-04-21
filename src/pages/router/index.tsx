@@ -2,17 +2,17 @@ import { createHashRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import { Home, HomeIndex } from '../Home';
 import { NotFound } from '../NotFound';
-import { routeLoading } from './renderRouteLoading';
+import { RouteLoading } from './renderRouteLoading';
 
 const hashRouter = createHashRouter([
   {
     path: '/',
-    element: <Home />,
-    hydrateFallbackElement: routeLoading,
+    Component: Home,
+    HydrateFallback: RouteLoading,
     children: [
       {
         index: true,
-        element: <HomeIndex />,
+        Component: HomeIndex,
       },
       {
         path: 'device',
@@ -46,7 +46,7 @@ const hashRouter = createHashRouter([
       },
     ],
   },
-  { path: '*', element: <NotFound /> },
+  { path: '*', Component: NotFound },
 ]);
 
 export function PageRouter() {
