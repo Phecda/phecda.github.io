@@ -60,6 +60,7 @@
 - Headless UI 只用于交互行为和可访问性，不要把它当通用布局库。
 - 尽量复用 `src/styles/variables.css` 里的设计变量。
 - 在 Tailwind 中使用 CSS 自定义属性时，优先采用 v4 的 canonical 写法，例如 `bg-(--color-brand)`、`text-(--color-text-2)`，不要继续使用旧的 arbitrary-value 写法。
+- 如果 Tailwind 已经有等价的 canonical utility，优先使用内置类名，不要写等价的 arbitrary value，例如优先 `rounded-3xl`，不要写 `rounded-[1.5rem]`，避免触发 `suggestCanonicalClasses`。
 - 除非用户明确要求，不要重新引入 Bootstrap 或 React Bootstrap。
 
 ## 质量门槛
