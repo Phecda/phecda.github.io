@@ -56,7 +56,11 @@
         "useArrayLiterals": "error",
         "useAsConstAssertion": "error",
         "useBlockStatements": "off",
-        "useConsistentArrowReturn": "off"
+        "useConsistentArrowReturn": "off",
+        "useImportType": {
+          "level": "error",
+          "options": { "style": "separatedType" }
+        }
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
