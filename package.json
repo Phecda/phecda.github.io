@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
+    "bowser": "2.14.1",
     "pinyin": "^3.0.0-alpha.5",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "react-router": "7.14.1",
-    "ua-parser-js": "^1.0.2"
+    "react-router": "7.14.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
@@ -31,7 +31,6 @@
     "@types/jest": "^27.4.1",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@types/ua-parser-js": "^0.7.36",
     "husky": "^7.0.0",
     "jest": "^27.5.1",
     "lint-staged": "^16.4.0",
