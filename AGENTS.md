@@ -24,12 +24,12 @@
 
 ## 常用命令
 
-- `yarn dev`：启动本地开发服务，端口 `3090`
-- `yarn build`：类型检查并构建生产产物
-- `yarn lint`：运行 Biome lint
-- `yarn lint:write`：运行 Biome lint 并自动修复
-- `yarn format`：运行 Biome format
-- `yarn preview`：预览生产构建结果
+- `pnpm dev`：启动本地开发服务，端口 `3090`
+- `pnpm build`：类型检查并构建生产产物
+- `pnpm lint`：运行 Biome lint
+- `pnpm lint:write`：运行 Biome lint 并自动修复
+- `pnpm format`：运行 Biome format
+- `pnpm preview`：预览生产构建结果
 
 ## 改动范围
 
@@ -56,8 +56,8 @@
 
 ## 质量门槛
 
-- 只要改了代码，至少执行一次 `yarn lint`。
-- 只要改动涉及类型、路由、样式管线、构建配置或部署配置，就执行 `yarn build`。
+- 只要改了代码，至少执行一次 `pnpm lint`。
+- 只要改动涉及类型、路由、样式管线、构建配置或部署配置，就执行 `pnpm build`。
 - `pre-commit` 会运行 `lint-staged`。
 - 提交信息会通过 `.husky/commit-msg` 执行 `commitlint` 检查。
 

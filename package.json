@@ -2,6 +2,7 @@
   "name": "gh-pages-playground",
   "version": "0.0.1",
   "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "dev": "rsbuild dev",
     "build": "tsc --noEmit && rsbuild build",
