@@ -11,7 +11,7 @@
     "lint-staged": "lint-staged",
     "format": "biome format --write .",
     "preview": "rsbuild preview",
-    "prepare": "husky install",
+    "prepare": "husky",
     "update:splash": "node scripts/generatePWASplash.mjs"
   },
   "dependencies": {
@@ -30,7 +30,7 @@
     "@types/jest": "^27.4.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "husky": "^7.0.0",
+    "husky": "^9.1.7",
     "jest": "^27.5.1",
     "lint-staged": "^16.4.0",
     "postcss": "^8.5.10",
