@@ -20,7 +20,7 @@
 - 样式：Tailwind CSS 4 + PostCSS
 - 交互组件基础能力：Headless UI
 - Lint / Format：Biome
-- Git Hooks：Husky + lint-staged + commitlint
+- Git Hooks：Husky + lint-staged
 
 ## 常用命令
 
@@ -30,6 +30,14 @@
 - `pnpm lint:write`：运行 Biome lint 并自动修复
 - `pnpm format`：运行 Biome format
 - `pnpm preview`：预览生产构建结果
+
+## 提交信息
+
+- 提交信息格式遵守 Conventional Commits 约定。
+- 标题格式使用 `<type>(<scope>)?: <subject>`，其中 `scope` 可选。
+- `type` 使用小写英文，例如 `feat`、`fix`、`refactor`、`docs`、`chore`、`ci`、`build`、`test`、`perf`、`revert`。
+- 除 `type` 外，其余内容可以使用中文；常见写法是 `<type>: 中文描述` 或 `<type>(scope): 中文描述`。
+- 示例：`feat: 增加设备信息页`、`fix(router): 修正首页跳转逻辑`、`chore(deps): 升级 pnpm 锁文件`。
 
 ## 改动范围
 
@@ -59,7 +67,6 @@
 - 只要改了代码，至少执行一次 `pnpm lint`。
 - 只要改动涉及类型、路由、样式管线、构建配置或部署配置，就执行 `pnpm build`。
 - `pre-commit` 会运行 `lint-staged`。
-- 提交信息会通过 `.husky/commit-msg` 执行 `commitlint` 检查。
 
 ## 部署说明
 

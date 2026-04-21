@@ -111,7 +111,7 @@
   },
   "overrides": [
     {
-      "includes": ["commitlint.config.js", "postcss.config.js"],
+      "includes": ["postcss.config.js"],
       "linter": {
         "rules": {
           "style": { "noCommonJs": "off" }

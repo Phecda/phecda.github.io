@@ -24,8 +24,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
     "@rsbuild/core": "^1.7.5",
     "@rsbuild/plugin-react": "^1.4.6",
     "@tailwindcss/postcss": "^4.2.3",
