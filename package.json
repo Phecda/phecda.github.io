@@ -27,7 +27,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "@rsbuild/core": "^1.7.5",
     "@rsbuild/plugin-react": "^1.4.6",
-    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/postcss": "^4.2.3",
     "@types/jest": "^27.4.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -37,7 +37,7 @@
     "postcss": "^8.5.10",
     "postcss-nesting": "^14.0.0",
     "pwa-asset-generator": "^6.0.8",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^4.2.3",
     "typescript": "^6.0.3"
   }
 }
