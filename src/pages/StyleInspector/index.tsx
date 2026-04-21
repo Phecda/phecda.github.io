@@ -1,7 +1,7 @@
-import { Container } from 'react-bootstrap';
-import styles from './styles.module.css';
+import { PageContainer } from '@/components/PageContainer';
 import { ColorCell } from './ColorCell';
 import { MediaQuery } from './MediaQuery';
+import styles from './styles.module.css';
 
 const colors = [
   {
@@ -42,7 +42,7 @@ const colors = [
 export function Component() {
   return (
     <div className="safe-background">
-      <Container>
+      <PageContainer className="space-y-6">
         <h1>Styles</h1>
         <h2>Media Query</h2>
         <p>
@@ -68,7 +68,7 @@ export function Component() {
           .
         </p>
         {colors.map(color => (
-          <section key={color.title}>
+          <section key={color.title} className="space-y-3">
             <h3>{color.title}</h3>
             <div className={styles.container}>
               {color.list.map(v => (
@@ -77,7 +77,7 @@ export function Component() {
             </div>
           </section>
         ))}
-      </Container>
+      </PageContainer>
     </div>
   );
 }

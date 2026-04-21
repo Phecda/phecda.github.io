@@ -1,17 +1,20 @@
-.navbar {
-  & a {
-    color: var(--bs-nav-link-color);
+.navLink {
+  color: color-mix(in oklab, var(--color-brand-text) 55%, transparent);
 
-    &:visited {
-      color: var(--bs-nav-link-color);
-    }
+  &:visited {
+    color: color-mix(in oklab, var(--color-brand-text) 55%, transparent);
+  }
+
+  &:hover,
+  &:visited:hover {
+    color: color-mix(in oklab, var(--color-brand-text) 75%, transparent);
   }
 }
 
-.favicon {
-  --icon-size: 36px;
+.navLinkActive {
+  color: var(--color-brand-text);
 
-  display: block;
-  width: var(--icon-size);
-  height: var(--icon-size);
+  &:visited {
+    color: var(--color-brand-text);
+  }
 }

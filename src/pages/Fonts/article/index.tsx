@@ -1,5 +1,5 @@
+import { Radio, RadioGroup } from '@headlessui/react';
 import { useState } from 'react';
-import { Alert, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import type { LoaderFunction } from 'react-router';
 import {
   isRouteErrorResponse,
@@ -20,6 +20,11 @@ type LoaderData = {
 };
 
 type TextMode = 'hanzi' | 'luofu';
+
+const textModeOptions: { label: string; value: TextMode }[] = [
+  { label: '漢', value: 'hanzi' },
+  { label: '羅', value: 'luofu' },
+];
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params;
@@ -59,28 +64,23 @@ function ArticlePage() {
 
   return (
     <div className={styles.container}>
-      <header>
-        <ToggleButtonGroup
-          name="text-mode"
-          type="radio"
+      <header className="mb-6 flex justify-center">
+        <RadioGroup
           value={textMode}
           onChange={handleChange}
+          aria-label="Text mode"
+          className="inline-flex gap-2 rounded-full border border-(--color-separator-opaque) bg-(--color-bg-2) p-1 shadow-sm"
         >
-          <ToggleButton
-            variant="outline-primary"
-            id="radio-text-mode-hanzi"
-            value="hanzi"
-          >
-            漢
-          </ToggleButton>
-          <ToggleButton
-            variant="outline-primary"
-            id="radio-text-mode-luofu"
-            value="luofu"
-          >
-            羅
-          </ToggleButton>
-        </ToggleButtonGroup>
+          {textModeOptions.map(option => (
+            <Radio
+              key={option.value}
+              value={option.value}
+              className="cursor-pointer rounded-full px-4 py-2 text-lg font-semibold text-(--color-text-2) transition focus-visible:outline-none data-checked:bg-(--color-brand) data-checked:text-(--color-brand-text) data-focus:ring-2 data-focus:ring-(--color-brand)"
+            >
+              {option.label}
+            </Radio>
+          ))}
+        </RadioGroup>
       </header>
       <article className={styles.article} data-mode={textMode}>
         <h1 className={styles.title}>{title}</h1>
@@ -107,9 +107,9 @@ export function ErrorBoundary() {
   }
 
   return (
-    <Alert variant="danger">
-      <Alert.Heading>{title}</Alert.Heading>
-      <p>{message}</p>
-    </Alert>
+    <div className="rounded-[1.75rem] border border-(--color-red) bg-(--color-bg-2) p-5 shadow-sm">
+      <h2 className="text-lg font-semibold text-(--color-red)">{title}</h2>
+      <p className="mt-2 text-sm text-(--color-text-2)">{message}</p>
+    </div>
   );
 }

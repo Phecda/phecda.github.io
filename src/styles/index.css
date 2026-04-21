@@ -1,6 +1,5 @@
+@import 'tailwindcss';
 @import './normal.css';
 @import './font.css';
 @import './variables.css';
 @import './elements.css';
-
-@import './bootstrap-override.css';

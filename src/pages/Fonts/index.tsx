@@ -1,12 +1,12 @@
-import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router';
+import { PageContainer } from '@/components/PageContainer';
 
 export function Component() {
   return (
     <div className="safe-background">
-      <Container>
+      <PageContainer>
         <Outlet />
-      </Container>
+      </PageContainer>
     </div>
   );
 }

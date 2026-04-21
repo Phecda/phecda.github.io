@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
+import { PageContainer } from '@/components/PageContainer';
+import { combineClassName } from '@/utils/combineClassName';
 
 function encodeToBase64(value: string) {
   return btoa(value);
@@ -78,8 +79,19 @@ const operations: Record<string, (value: string) => string> = {
   'Decode URI component': decodeURIComp,
 };
 
+const fieldClassName =
+  'block w-full rounded-md border border-(--color-separator-opaque) bg-(--color-bg-1) px-3 py-2 text-base text-(--color-text-1) transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)';
+
+const textareaClassName = `${fieldClassName} min-h-28 resize-y`;
+
+const labelClassName = 'mb-2 block font-medium';
+
+const buttonBaseClassName =
+  'inline-flex items-center justify-center rounded-md border px-3 py-2 text-base transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand)';
+
 export function Component() {
   const [validated, setValidated] = useState(false);
+  const [inputInvalid, setInputInvalid] = useState(false);
   const [outputError, setOutputError] = useState('');
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -90,6 +102,8 @@ export function Component() {
     const valid = form.checkValidity();
 
     setValidated(true);
+    const input = form.elements.namedItem('inputString') as HTMLTextAreaElement;
+    setInputInvalid(!input.checkValidity());
 
     if (valid) {
       const input = form.elements.namedItem(
@@ -113,65 +127,104 @@ export function Component() {
 
   const onReset = () => {
     setValidated(false);
+    setInputInvalid(false);
     setOutputError('');
   };
 
   return (
     <div className="safe-background">
-      <Container>
+      <PageContainer className="space-y-4">
         <h1>Quick Tools</h1>
-        <Form
+        <form
           noValidate
-          validated={validated}
           onSubmit={onSubmit}
           onReset={onReset}
-          action=""
+          className="grid gap-4 lg:grid-cols-3"
         >
-          <Row className="gy-4">
-            <Form.Group as={Col} xs={12} lg={4} controlId="inputString">
-              <Form.Label>Input</Form.Label>
-              <Form.Control required as="textarea" rows={4} />
-              <Form.Control.Feedback type="invalid">
+          <section>
+            <label className={labelClassName} htmlFor="inputString">
+              Input
+            </label>
+            <textarea
+              id="inputString"
+              name="inputString"
+              required
+              rows={4}
+              aria-invalid={validated && inputInvalid}
+              onInput={() => setInputInvalid(false)}
+              className={combineClassName(
+                textareaClassName,
+                validated &&
+                  inputInvalid &&
+                  'border-(--color-red) focus-visible:ring-(--color-red)'
+              )}
+            />
+            {validated && inputInvalid ? (
+              <p className="mt-1 text-sm text-(--color-red)">
                 Please enter a valid value.
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Col xs={12} lg={4}>
-              <Stack gap={4}>
-                <Form.Group controlId="operation">
-                  <Form.Label>Operation</Form.Label>
-                  <Form.Select>
-                    {Object.keys(operations).map(name => (
-                      <option key={name} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
-                <Stack direction="horizontal" gap={4}>
-                  <Button variant="primary" type="submit">
-                    Go
-                  </Button>
-                  <Button variant="secondary" type="reset">
-                    Clear
-                  </Button>
-                </Stack>
-              </Stack>
-            </Col>
-            <Form.Group as={Col} xs={12} lg={4} controlId="outputString">
-              <Form.Label>Output</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={4}
-                readOnly
-                isInvalid={!!outputError}
-              />
-              <Form.Control.Feedback type="invalid">
-                {outputError}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-        </Form>
-      </Container>
+              </p>
+            ) : null}
+          </section>
+          <section className="space-y-4">
+            <div>
+              <label className={labelClassName} htmlFor="operation">
+                Operation
+              </label>
+              <select
+                id="operation"
+                name="operation"
+                className={fieldClassName}
+              >
+                {Object.keys(operations).map(name => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <button
+                className={combineClassName(
+                  buttonBaseClassName,
+                  'border-(--color-brand) bg-(--color-brand) text-(--color-brand-text) hover:brightness-110'
+                )}
+                type="submit"
+              >
+                Go
+              </button>
+              <button
+                className={combineClassName(
+                  buttonBaseClassName,
+                  'border-(--color-separator-opaque) bg-(--color-bg-3) text-(--color-text-1) hover:bg-(--color-fill-3)'
+                )}
+                type="reset"
+              >
+                Clear
+              </button>
+            </div>
+          </section>
+          <section>
+            <label className={labelClassName} htmlFor="outputString">
+              Output
+            </label>
+            <textarea
+              id="outputString"
+              name="outputString"
+              rows={4}
+              readOnly
+              aria-invalid={!!outputError}
+              className={combineClassName(
+                textareaClassName,
+                outputError &&
+                  'border-(--color-red) focus-visible:ring-(--color-red)'
+              )}
+            />
+            {outputError ? (
+              <p className="mt-1 text-sm text-(--color-red)">{outputError}</p>
+            ) : null}
+          </section>
+        </form>
+      </PageContainer>
     </div>
   );
 }
