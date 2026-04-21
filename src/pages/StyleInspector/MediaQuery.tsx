@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 const mediaFeatures: ([string] | [string, (string | number)[]])[] = [
@@ -135,7 +135,7 @@ export function MediaQuery() {
           </div>
         </div>
       </form>
-      <p>{mqMsg}</p>
+      <p className="mt-2">{mqMsg}</p>
     </div>
   );
 }

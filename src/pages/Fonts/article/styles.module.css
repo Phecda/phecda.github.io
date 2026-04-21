@@ -4,6 +4,8 @@
 }
 
 .article {
+  display: grid;
+  gap: 0.5em;
   font-family: LXGWNeoXiHei;
   text-align: center;
 

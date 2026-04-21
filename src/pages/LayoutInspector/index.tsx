@@ -42,7 +42,7 @@ export function Component() {
   return (
     <div ref={bgRef} className={`safe-background ${styles.background}`}>
       <div ref={contentRef} className={styles.content}>
-        <p>
+        <p className="mb-2">
           Back to{' '}
           <Link to="/" viewTransition>
             Home
