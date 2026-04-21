@@ -20,7 +20,10 @@
     "pinyin": "^4.0.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "react-router": "^7.14.1"
+    "react-markdown": "^10.1.0",
+    "react-router": "^7.14.1",
+    "vfile": "^6.0.3",
+    "vfile-matter": "^5.0.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",

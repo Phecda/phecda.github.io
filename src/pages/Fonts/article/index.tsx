@@ -1,5 +1,6 @@
 import { Radio, RadioGroup } from '@headlessui/react';
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import type { LoaderFunction } from 'react-router';
 import {
   isRouteErrorResponse,
@@ -7,11 +8,15 @@ import {
   useRouteError,
 } from 'react-router';
 import styles from './styles.module.css';
-import { getFirstLetters } from './utils';
+import {
+  fetchFontArticleDocument,
+  getFirstLetters,
+  transformMarkdownToLuofu,
+} from './utils';
 
 type ArticleData = {
   title: string;
-  paragraphs: string[];
+  content: string;
 };
 
 type LoaderData = {
@@ -29,19 +34,19 @@ const textModeOptions: { label: string; value: TextMode }[] = [
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params;
   try {
-    const resp = await fetch(`/posts/${slug}.json`);
+    if (!slug) {
+      throw new Error('Missing article slug');
+    }
 
-    const json = await resp.json();
-
-    const { title, paragraphs } = json;
+    const { title, content } = await fetchFontArticleDocument(slug);
 
     const hanzi = {
       title,
-      paragraphs,
+      content,
     };
     const luofu = {
       title: getFirstLetters(title),
-      paragraphs: paragraphs.map(getFirstLetters),
+      content: transformMarkdownToLuofu(content),
     };
     return { hanzi, luofu };
   } catch {
@@ -56,7 +61,7 @@ function ArticlePage() {
   const loaderData = useLoaderData() as LoaderData;
 
   const [textMode, setTextMode] = useState<TextMode>('hanzi');
-  const { title, paragraphs } = loaderData[textMode];
+  const { title, content } = loaderData[textMode];
 
   const handleChange = (value: TextMode) => {
     setTextMode(value);
@@ -83,10 +88,8 @@ function ArticlePage() {
         </RadioGroup>
       </header>
       <article className={styles.article} data-mode={textMode}>
-        <h1 className={styles.title}>{title}</h1>
-        {paragraphs.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
+        <h1>{title}</h1>
+        <ReactMarkdown>{content}</ReactMarkdown>
       </article>
     </div>
   );
@@ -107,7 +110,7 @@ export function ErrorBoundary() {
   }
 
   return (
-    <div className="rounded-[1.75rem] border border-(--color-red) bg-(--color-bg-2) p-5 shadow-sm">
+    <div className="rounded-4xl border border-(--color-red) bg-(--color-bg-2) p-5 shadow-sm">
       <h2 className="text-lg font-semibold text-(--color-red)">{title}</h2>
       <p className="mt-2 text-sm text-(--color-text-2)">{message}</p>
     </div>

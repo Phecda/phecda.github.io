@@ -1,14 +1,15 @@
-import { Link, useOutlet } from 'react-router';
+import { Link, useLoaderData, useOutlet } from 'react-router';
 import { PageContainer } from '@/components/PageContainer';
+import type { FontArticleSummary } from './article/utils';
+import { fetchFontArticleSummaries } from './article/utils';
 
-const fontArticles = [
-  {
-    slug: 'dgjcg-1',
-    title: '帝弓迹躔歌·其一',
-  },
-];
+export async function loader() {
+  return fetchFontArticleSummaries();
+}
 
 function FontsIndex() {
+  const fontArticles = useLoaderData() as FontArticleSummary[];
+
   return (
     <section className="space-y-6 py-6">
       <header className="space-y-2">
