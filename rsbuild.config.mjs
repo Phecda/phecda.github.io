@@ -1,6 +1,6 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import { fileURLToPath } from 'node:url';
 
 const srcRoot = fileURLToPath(new URL('./src', import.meta.url));
 const publicRoot = fileURLToPath(new URL('./public', import.meta.url));

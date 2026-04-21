@@ -1,5 +1,5 @@
-import pwaGenerator from 'pwa-asset-generator';
 import path from 'path';
+import pwaGenerator from 'pwa-asset-generator';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);

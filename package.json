@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "rsbuild dev",
     "build": "tsc --noEmit && rsbuild build",
-    "lint": "biome lint .",
-    "lint:write": "biome lint --write .",
+    "lint": "biome check .",
+    "lint:write": "biome check --write .",
     "lint-staged": "lint-staged",
     "format": "biome format --write .",
     "preview": "rsbuild preview",
